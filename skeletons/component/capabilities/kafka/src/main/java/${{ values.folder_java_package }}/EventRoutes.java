@@ -99,8 +99,10 @@ public class EventRoutes extends RouteBuilder {
         byte[] bytes = codec.encode(json, headers);
         var result = producer.send(new ProducerRecord<>(codec.selected.topic(), null, null, null, bytes, headers)).get(30, TimeUnit.SECONDS);
         exchange.getMessage().setHeader(Exchange.CONTENT_TYPE, "application/json");
-        exchange.getMessage().setBody(EventContracts.JSON.writeValueAsString(Map.of("topic", result.topic(),
-                "partition", result.partition(), "offset", result.offset(), "eventId", EventCodec.header(headers, "ce_id"))));
+        var response = Map.of("topic", result.topic(), "partition", result.partition(),
+                "offset", result.offset(), "eventId", EventCodec.header(headers, "ce_id"));
+        exchange.getMessage().setBody(codec.selected.restOperation().isEmpty()
+                ? EventContracts.JSON.writeValueAsString(response) : response);
     }
     @PreDestroy
     void closeClients() {
