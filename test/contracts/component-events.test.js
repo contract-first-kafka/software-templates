@@ -25,3 +25,14 @@ test('Kafka selection validates type and exact channel/message independent of op
  entity.spec.type='openapi';
  await expect(jsonata(step('resolveEventMetadata').input.expression).evaluate({entities:[entity],selections:[{version:'latest',messages}]})).rejects.toMatchObject({message: expect.stringContaining('AsyncAPI entity')});
 });
+test('Component API relationships include only selected message roles, without duplicate API refs', () => {
+ const nunjucks=require('nunjucks');
+ const env=new nunjucks.Environment(null,{tags:{variableStart:'${{',variableEnd:'}}'}});
+ const rendered=env.renderString(fs.readFileSync(path.join(root,'skeletons/component/base/catalog-info.yaml'),'utf8'),{values:{
+  componentName:'mixed',implementsApi:true,apiRef:'api:default/rest',consumed_apis:[],
+  event_apis:[{ref:'api:default/events',messages:[{role:'publish'},{role:'publish'},{role:'consume'}]}]
+ }});
+ const entity=YAML.parse(rendered);
+ expect(entity.spec.providesApis).toEqual(['api:default/rest','api:default/events']);
+ expect(entity.spec.consumesApis).toEqual(['api:default/events']);
+});
