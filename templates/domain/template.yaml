@@ -129,6 +129,16 @@ spec:
           - {team: domain-maintainers, access: maintain}
           - {team: domain-contributors, access: push}
           - {team: domain-viewers, access: pull}
+    - id: eventCatalogWebhook
+      name: Refresh Domain EventCatalog
+      action: github:webhook
+      input:
+        repoUrl: github.com?owner=${{ parameters.organization }}&repo=${{ parameters.domainName }}-domain
+        webhookUrl: https://el-eventcatalog-${{ parameters.domainName }}-catalog.${{ steps.fetchTarget.output.entity.spec.platform.cluster.routerDomain }}
+        events: [push]
+        active: true
+        contentType: json
+        insecureSsl: false
     - id: applicationWebhook
       name: Notify Argo CD on Domain changes
       action: github:webhook

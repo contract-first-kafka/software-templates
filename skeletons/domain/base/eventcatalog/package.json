@@ -1,0 +1,15 @@
+{
+  "name": "domain-eventcatalog",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "discover": "node scripts/discover.mjs",
+    "generate": "eventcatalog generate",
+    "build": "eventcatalog build"
+  },
+  "dependencies": {
+    "@eventcatalog/core": "5.4.1",
+    "@eventcatalog/generator-asyncapi": "7.1.0",
+    "yaml": "2.8.3"
+  }
+}

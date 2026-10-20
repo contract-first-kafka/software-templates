@@ -1,0 +1,14 @@
+node_modules/
+.eventcatalog-core/
+.astro/
+dist/
+.inputs/
+.discovery.json
+domains/
+services/
+events/
+commands/
+queries/
+channels/
+public/build-inputs.json
+public/LICENSES/

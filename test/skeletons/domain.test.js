@@ -33,6 +33,11 @@ test('Domain skeleton renders a parseable nonstandard lifecycle', async () => {
       path.join(destination, 'catalog-info.yaml'), 'utf8'));
     expect(catalog.spec.environments.order).toEqual(['sandbox', 'stage', 'production']);
     expect(catalog.spec.environments.build).toBe('sandbox');
+    expect(catalog.spec.eventCatalog.enabled).toBe(true);
+    const catalogPackage = JSON.parse(await fs.readFile(path.join(destination,'eventcatalog/package.json'),'utf8'));
+    expect(catalogPackage.dependencies['@eventcatalog/core']).toBe('5.4.1');
+    expect(catalogPackage.dependencies['@eventcatalog/generator-asyncapi']).toBe('7.1.0');
+    expect(await fs.readFile(path.join(destination,'eventcatalog/docs/index.mdx'),'utf8')).toContain('# Retail');
     expect(catalog.spec.environments.definitions.production.namespaceSuffix).toBe('');
     expect(catalog.spec.platformTarget).toBe('resource:default/workshop');
     expect(catalog.spec).not.toHaveProperty('schemaRegistry');
@@ -81,6 +86,7 @@ test('platform admission skeleton renders trusted sources and constrained permis
       {server: 'https://target.example.test', namespace: 'gitops-control-plane'},
       {server: 'https://target.example.test', namespace: 'shared-identity-services'},
       {server: 'https://target.example.test', namespace: 'shared-secret-services'},
+      {server: 'https://target.example.test', namespace: 'retail-catalog'},
     ]);
     expect(project.spec.clusterResourceWhitelist).not.toContainEqual(
       expect.objectContaining({group: '*'}),

@@ -17,6 +17,8 @@ spec:
   owner: group:default/domain-maintainers
   platformTarget: ${{ values.platformTarget }}
   groupId: ${{ values.groupId }}
+  eventCatalog:
+    enabled: true
   environments:
     order:
 {%- for environment in values.environments %}
