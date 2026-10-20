@@ -13,3 +13,4 @@ spec:
     - ./templates/component/template.yaml
     - ./templates/resource/template.yaml
     - ./templates/component/promotion.yaml
+    - ./templates/asyncapi/template.yaml

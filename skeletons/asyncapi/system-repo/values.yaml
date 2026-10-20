@@ -1,0 +1,2 @@
+specificationType: asyncapi
+repository: ${{ values.apiRepoCloneUrl }}
