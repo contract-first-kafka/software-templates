@@ -36,7 +36,7 @@ test('Domain skeleton renders a parseable nonstandard lifecycle', async () => {
     expect(catalog.spec.eventCatalog.enabled).toBe(true);
     const catalogPackage = JSON.parse(await fs.readFile(path.join(destination,'eventcatalog/package.json'),'utf8'));
     expect(catalogPackage.dependencies['@eventcatalog/core']).toBe('5.4.1');
-    expect(catalogPackage.dependencies['@eventcatalog/generator-asyncapi']).toBe('7.1.0');
+    expect(catalogPackage.devDependencies['@eventcatalog/generator-asyncapi']).toBe('7.1.0');
     expect(await fs.readFile(path.join(destination,'eventcatalog/docs/index.mdx'),'utf8')).toContain('# Retail');
     expect(catalog.spec.environments.definitions.production.namespaceSuffix).toBe('');
     expect(catalog.spec.platformTarget).toBe('resource:default/workshop');
