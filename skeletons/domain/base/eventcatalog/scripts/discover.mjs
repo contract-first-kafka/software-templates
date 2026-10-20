@@ -5,7 +5,7 @@ import {execFileSync} from 'node:child_process';
 import YAML from 'yaml';
 const project = process.cwd(), root = path.resolve(project, '..');
 const read = file => YAML.parse(fs.readFileSync(file, 'utf8'));
-const git = (cwd, ...args) => execFileSync('git', args, {cwd, encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim();
+const git = (cwd, ...args) => execFileSync('git', ['-c', `safe.directory=${cwd}`, ...args], {cwd, encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim();
 const files = dir => fs.existsSync(dir) ? fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(path.join(dir,e.name)):[path.join(dir,e.name)]) : [];
 const domain = read(path.join(root,'catalog-info.yaml'));
 if(domain.kind!=='Domain')throw Error('Expected Domain catalog-info.yaml');
