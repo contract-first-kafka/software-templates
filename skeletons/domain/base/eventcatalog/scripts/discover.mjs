@@ -39,7 +39,7 @@ for(const file of activationFiles) {
     const spec=path.join(apiRoot,definition);
     effective.push([values.repository+'/'+definition,fs.readFileSync(spec,'utf8')]); // Never parse or transform AsyncAPI here.
     const owner=api.spec.owner || system.spec.owner;
-    services.push({id:`${system.metadata.name}--${api.metadata.name}`,name:`${system.metadata.name} / ${api.metadata.name} (contract)`,summary:`Independent API contract in System ${system.metadata.name}. Owner: ${owner}. Source: ${values.repository}. No deployed Component is implied.`,path:spec,owners:[owner.split('/').pop()]});
+    services.push({id:`${system.metadata.name}--${api.metadata.name}`,name:`${system.metadata.name} / ${api.metadata.name} (contract)`,summary:`Independent API contract in System ${system.metadata.name}. Owner: ${owner}. Source: ${values.repository}. No deployed Component is implied.`,path:path.relative(project,spec),owners:[owner.split('/').pop()]});
   }
 }
 const metadata=structuredClone(domain);delete metadata.spec.eventCatalog?.image;delete metadata.spec.eventCatalog?.inputDigest;
