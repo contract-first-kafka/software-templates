@@ -19,3 +19,7 @@ not create native System resources. Contract Service names and summaries retain
 the source System and owner; Git remains the authority for System membership.
 These Services do not imply deployed Components. Native sends/receives describe
 the contract operations, not verified implementation relationships.
+
+The image keeps Nginx redirects relative so native catalog navigation preserves
+the external HTTPS Route. The Domain pipeline coalesces overlapping refreshes
+with a Kubernetes Lease and rediscovers inputs after a successful build.
