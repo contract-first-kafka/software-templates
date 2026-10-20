@@ -46,3 +46,33 @@ test('Git discovery follows registrations, keeps portable paths and skips unchan
     expect(fs.readFileSync(path.join(project,'docs/index.mdx'),'utf8')).toBe('Authored architecture must survive');
   } finally {fs.rmSync(temp,{recursive:true,force:true});}
 });
+
+test('server runtime packaging includes MCP contract files and notices but excludes build inputs and credentials', () => {
+  const source = path.join(root, 'skeletons/domain/base/eventcatalog');
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'catalog-runtime-'));
+  try {
+    for (const file of ['dist/server/entry.mjs', 'dist/client/generated/services/orders/specification.yaml',
+      '.discovery.json', 'docs/index.mdx', 'domains/demo/services/orders/specification.yaml',
+      '.astro/eventcatalog/.eventcatalog/fields.db', '.inputs/repo/.git/config', '.env',
+      'node_modules/@eventcatalog/core/LICENSE', 'node_modules/@eventcatalog/core/NOTICE',
+      'node_modules/@eventcatalog/generator-asyncapi/LICENSE']) {
+      fs.mkdirSync(path.dirname(path.join(temp, file)), {recursive: true});
+      fs.writeFileSync(path.join(temp, file), 'fixture');
+    }
+    for (const file of ['package.json', 'package-lock.json', 'eventcatalog.config.js'])
+      fs.copyFileSync(path.join(source, file), path.join(temp, file));
+    execFileSync(process.execPath, [path.join(source, 'scripts/package-runtime.mjs')], {cwd: temp});
+    for (const file of ['.discovery.json', 'docs/index.mdx', 'domains/demo/services/orders/specification.yaml',
+      '.astro/eventcatalog/.eventcatalog/fields.db', 'dist/client/LICENSES/EventCatalog.txt',
+      'dist/client/LICENSES/EventCatalog-NOTICE.txt', 'dist/client/LICENSES/AsyncAPI-generator.txt'])
+      expect(fs.existsSync(path.join(temp, '.runtime', file))).toBe(true);
+    for (const file of ['.inputs', '.env', 'node_modules', '.git'])
+      expect(fs.existsSync(path.join(temp, '.runtime', file))).toBe(false);
+    const pkg = JSON.parse(fs.readFileSync(path.join(source, 'package.json')));
+    expect(pkg.dependencies).toEqual({'@eventcatalog/core': '5.4.1'});
+    expect(pkg.devDependencies['@eventcatalog/generator-asyncapi']).toBe('7.1.0');
+    expect(fs.readFileSync(path.join(source, 'eventcatalog.config.js'), 'utf8')).toContain("output: 'server'");
+    expect(fs.readFileSync(path.join(source, 'Dockerfile'), 'utf8')).toContain('ln -s /opt/app-root/src/dist/client/generated /generated');
+    expect(fs.readFileSync(path.join(source, '.dockerignore'), 'utf8')).toContain('!.runtime/**');
+  } finally { fs.rmSync(temp, {recursive: true, force: true}); }
+});

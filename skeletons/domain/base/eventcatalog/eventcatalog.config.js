@@ -7,6 +7,8 @@ export default {
   organizationName: inputs.organization,
   homepageLink: process.env.CATALOG_URL || inputs.resolved[0].url.replace(/\.git$/, ''),
   trailingSlash: 'always',
+  output: 'server',
+  mcp: {enabled: true},
   generators: inputs.services.length ? [[
     '@eventcatalog/generator-asyncapi', {
       parseChannels: true,

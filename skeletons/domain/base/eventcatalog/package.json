@@ -5,10 +5,13 @@
   "scripts": {
     "discover": "node scripts/discover.mjs",
     "generate": "eventcatalog generate",
-    "build": "eventcatalog build"
+    "build": "eventcatalog build && node scripts/package-runtime.mjs",
+    "start": "eventcatalog start"
   },
   "dependencies": {
-    "@eventcatalog/core": "5.4.1",
+    "@eventcatalog/core": "5.4.1"
+  },
+  "devDependencies": {
     "@eventcatalog/generator-asyncapi": "7.1.0",
     "yaml": "2.8.3"
   }

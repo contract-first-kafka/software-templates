@@ -1,5 +1,4 @@
 *
-!dist/
-!dist/**
+!.runtime/
+!.runtime/**
 !Dockerfile
-!nginx.conf
