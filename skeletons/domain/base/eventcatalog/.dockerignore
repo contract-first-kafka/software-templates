@@ -2,3 +2,4 @@
 !dist/
 !dist/**
 !Dockerfile
+!nginx.conf
