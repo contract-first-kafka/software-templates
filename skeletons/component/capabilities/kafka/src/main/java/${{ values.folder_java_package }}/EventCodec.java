@@ -76,7 +76,8 @@ public final class EventCodec implements AutoCloseable {
             if (bytes == null || bytes.length < 9 || bytes[0] != 0) return false;
             id = ByteBuffer.wrap(bytes, 1, 8).getLong();
         }
-        return id == selected.globalId();
+        return id == selected.globalId() && (!selected.exampleHeaders().has("ce_type")
+                || header(headers, "ce_type").equals(selected.exampleHeaders().path("ce_type").asText()));
     }
     public Object decode(Headers headers, byte[] bytes) {
         if (!matches(headers, bytes)) throw new IllegalArgumentException("Record schema is outside the selected contract version");
