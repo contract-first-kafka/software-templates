@@ -52,7 +52,7 @@ public class EventRoutes extends RouteBuilder {
                         if (operation.path("operationId").asText().equals(selection.restOperation())) found = true;
                     if (!found) throw new IllegalArgumentException("Unknown provided OpenAPI operation " + selection.restOperation());
                     from("direct:" + selection.restOperation()).routeId("rest-publish-" + selection.id())
-                            .convertBodyTo(String.class).to("direct:events." + selection.id());
+                            .to("direct:events." + selection.id());
                     {%- else %}
                     throw new IllegalArgumentException("REST operation mapping requires a provided OpenAPI contract");
                     {%- endif %}
@@ -93,7 +93,10 @@ public class EventRoutes extends RouteBuilder {
     }
     private void publish(EventCodec codec, Exchange exchange) throws Exception {
         var headers = codec.headers();
-        byte[] bytes = codec.encode(exchange.getMessage().getBody(String.class), headers);
+        Object body = exchange.getMessage().getBody();
+        String json = body instanceof String ? (String)body : body instanceof byte[]
+                ? new String((byte[])body, StandardCharsets.UTF_8) : EventContracts.JSON.writeValueAsString(body);
+        byte[] bytes = codec.encode(json, headers);
         var result = producer.send(new ProducerRecord<>(codec.selected.topic(), null, null, null, bytes, headers)).get(30, TimeUnit.SECONDS);
         exchange.getMessage().setHeader(Exchange.CONTENT_TYPE, "application/json");
         exchange.getMessage().setBody(EventContracts.JSON.writeValueAsString(Map.of("topic", result.topic(),

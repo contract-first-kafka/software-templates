@@ -22,7 +22,7 @@ schema under an earlier Git version. Missing contracts/schemas fail startup. It
 never registers schemas. Registry reads use the platform's anonymous read access;
 authenticated registries require additional client configuration.
 
-Apicurio 3.2.5 serializers perform native Avro and validated JSON serialization.
+Quarkus BOM-managed Apicurio 3.x serializers perform native Avro and validated JSON serialization.
 Schema ID location follows the message Kafka binding; the standard global-ID
 header or payload framing is used. Consumers only accept the selected schema
 versions. Multiple messages on one topic are dispatched by that ID. A consumer
