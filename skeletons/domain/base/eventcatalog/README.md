@@ -62,7 +62,9 @@ workaround, not a custom server or contract parser.
 
 MCP is unauthenticated for this public synthetic demonstration. It exposes the
 same generated contracts, schemas, ownership, and documentation in machine-readable
-form. Studio is not enabled and no custom write tools are added. Before production,
+form. Studio and the unconfigured AI chat widget are disabled; no custom write tools are added.
+The chat widget in core 5.4.1 otherwise renders a timezone-dependent greeting that
+causes an SSR hydration warning for clients in a different timezone. Before production,
 review data classification, EventCatalog's native MCP authentication, authorization,
 network access, rate limits, and the core BSL license/commercial-use terms. Preserve
 `/LICENSES/EventCatalog.txt`, `/LICENSES/EventCatalog-NOTICE.txt`, and

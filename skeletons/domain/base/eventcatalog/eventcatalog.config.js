@@ -9,6 +9,8 @@ export default {
   trailingSlash: 'always',
   output: 'server',
   mcp: {enabled: true},
+  // No model provider is configured; avoid the unused chat widget and its SSR greeting mismatch.
+  chat: {enabled: false},
   generators: inputs.services.length ? [[
     '@eventcatalog/generator-asyncapi', {
       parseChannels: true,

@@ -68,6 +68,7 @@ test('server runtime packaging includes MCP contract files and notices but exclu
       expect(fs.existsSync(path.join(temp, '.runtime', file))).toBe(true);
     for (const file of ['.inputs', '.env', 'node_modules', '.git'])
       expect(fs.existsSync(path.join(temp, '.runtime', file))).toBe(false);
+    expect(fs.readFileSync(path.join(source, 'eventcatalog.config.js'), 'utf8')).toContain('chat: {enabled: false}');
     const pkg = JSON.parse(fs.readFileSync(path.join(source, 'package.json')));
     expect(pkg.dependencies).toEqual({'@eventcatalog/core': '5.4.1'});
     expect(pkg.devDependencies['@eventcatalog/generator-asyncapi']).toBe('7.1.0');
