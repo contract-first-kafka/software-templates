@@ -81,6 +81,7 @@ test('platform admission skeleton renders trusted sources and constrained permis
       {server: 'https://target.example.test', namespace: 'gitops-control-plane'},
       {server: 'https://target.example.test', namespace: 'shared-identity-services'},
       {server: 'https://target.example.test', namespace: 'shared-secret-services'},
+      {server: 'https://target.example.test', namespace: 'retail-catalog'},
     ]);
     expect(project.spec.clusterResourceWhitelist).not.toContainEqual(
       expect.objectContaining({group: '*'}),

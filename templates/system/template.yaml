@@ -83,6 +83,17 @@ spec:
           - {team: domain-maintainers, access: maintain}
           - {team: domain-contributors, access: push}
           - {team: domain-viewers, access: pull}
+    - id: eventCatalogWebhook
+      name: Refresh Domain EventCatalog
+      if: ${{ steps.fetchDomain.output.entity.spec.eventCatalog.enabled }}
+      action: github:webhook
+      input:
+        repoUrl: ${{ steps.fetchDomain.output.entity.metadata.annotations['contract-first-idp.github.io/scm-host'] }}?owner=${{ steps.fetchDomain.output.entity.metadata.annotations['contract-first-idp.github.io/domain-org'] }}&repo=${{ parameters.systemName }}-system
+        webhookUrl: https://el-eventcatalog-${{ steps.fetchDomain.output.entity.metadata.name }}-catalog.${{ steps.fetchTarget.output.entity.spec.platform.cluster.routerDomain }}
+        events: [push]
+        active: true
+        contentType: json
+        insecureSsl: false
     - id: applicationWebhook
       name: Notify Argo CD on System changes
       action: github:webhook
