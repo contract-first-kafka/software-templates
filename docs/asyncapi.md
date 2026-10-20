@@ -18,3 +18,9 @@ stable artifact identity, compatibility, and Apicurio Kafka client configuration
 The reusable verification contract is `test/fixtures/asyncapi/order-events.yaml`
 in developer-charts. Its broker hostname is illustrative; scaffolding does not
 provision a broker or producer/consumer applications.
+
+Microcks 1.14 requires an explicit `messages` list per operation and currently
+retains examples from only the last message in that list. For complete example
+import, use separate operations with one message each; multiple distinct messages
+can still share a channel/topic. The pipeline checks import completeness and
+fails with a useful explanation if the installed importer loses examples.
