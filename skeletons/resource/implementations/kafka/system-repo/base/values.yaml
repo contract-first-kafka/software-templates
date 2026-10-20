@@ -1,0 +1,9 @@
+profile: kafka
+resourceName: ${{ values.resourceName }}
+implementation:
+  path: charts/resource/kafka
+kafkaVersion: ${{ values.kafkaVersion }}
+replicas: ${{ values.replicaCount }}
+storage:
+  storageClass: ${{ values.storageClass }}
+  deleteClaim: false

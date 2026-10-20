@@ -17,8 +17,8 @@ spec:
           title: Resource profile
           type: string
           default: postgresql
-          enum: [postgresql]
-          enumNames: [PostgreSQL]
+          enum: [postgresql, kafka]
+          enumNames: [PostgreSQL, Red Hat Streams for Apache Kafka]
         resourceName: {title: Resource name, type: string, pattern: '^([a-z][a-z0-9]*)(-[a-z0-9]+)*$'}
         systemRef:
           title: System
@@ -37,6 +37,13 @@ spec:
                 storageSize: {title: Environment storage, type: string, default: 5Gi}
                 storageClass: {title: StorageClass, type: string, default: ''}
               required: [databaseName, userName, postgresVersion, replicaCount, storageSize]
+            - properties:
+                profile: {const: kafka}
+                kafkaVersion: {title: Kafka version, type: string, default: 4.2.0, pattern: '^4\.2\.[0-9]+$'}
+                replicaCount: {title: Broker/controller replicas, type: integer, enum: [1, 3], default: 1, description: One for development; three for high availability.}
+                storageSize: {title: Storage per node, type: string, default: 5Gi, pattern: '^[1-9][0-9]*(Gi|Ti)$'}
+                storageClass: {title: StorageClass, type: string, default: ''}
+              required: [kafkaVersion, replicaCount, storageSize]
   steps:
     - id: fetchSystem
       name: Fetch System
@@ -61,7 +68,7 @@ spec:
         values:
           profile: ${{ parameters.profile }}
           resourceName: ${{ parameters.resourceName }}
-          description: PostgreSQL database for ${{ steps.fetchSystem.output.entity.metadata.name }}
+          description: ${{ parameters.profile }} Resource for ${{ steps.fetchSystem.output.entity.metadata.name }}
           owner: group:default/domain-maintainers
           systemRef: ${{ parameters.systemRef }}
           systemName: ${{ steps.fetchSystem.output.entity.metadata.name }}
@@ -87,6 +94,7 @@ spec:
           databaseName: ${{ parameters.databaseName }}
           userName: ${{ parameters.userName }}
           postgresVersion: ${{ parameters.postgresVersion }}
+          kafkaVersion: ${{ parameters.kafkaVersion }}
           replicaCount: ${{ parameters.replicaCount }}
     - id: renderSystemBase
       name: Render Resource base desired state
@@ -99,6 +107,7 @@ spec:
           databaseName: ${{ parameters.databaseName }}
           userName: ${{ parameters.userName }}
           postgresVersion: ${{ parameters.postgresVersion }}
+          kafkaVersion: ${{ parameters.kafkaVersion }}
           replicaCount: ${{ parameters.replicaCount }}
           storageClass: ${{ parameters.storageClass }}
     - id: renderSystemEnvironment

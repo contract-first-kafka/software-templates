@@ -17,13 +17,33 @@ spec:
   lifecycle: production
   owner: ${{ values.owner }}
   system: ${{ values.systemRef }}
-{%- if values.implementsApi %}
+{%- set publishers = [] %}
+{%- set subscribers = [] %}
+{%- for api in values.event_apis or [] %}
+{%- for msg in api.messages %}
+{%- if msg.role == 'publish' and api.ref not in publishers %}
+{%- set publishers = (publishers.push(api.ref), publishers) %}
+{%- endif %}
+{%- if msg.role == 'consume' and api.ref not in subscribers %}
+{%- set subscribers = (subscribers.push(api.ref), subscribers) %}
+{%- endif %}
+{%- endfor %}
+{%- endfor %}
+{%- if values.implementsApi or publishers | length > 0 %}
   providesApis:
+{%- if values.implementsApi %}
     - ${{ values.apiRef }}
 {%- endif %}
-{%- if values.consumed_apis | length > 0 %}
+{%- for ref in publishers %}
+    - ${{ ref }}
+{%- endfor %}
+{%- endif %}
+{%- if values.consumed_apis | length > 0 or subscribers | length > 0 %}
   consumesApis:
 {%- for api in values.consumed_apis %}
     - ${{ api.ref }}
 {%- endfor %}
 {%- endif %}
+{%- for ref in subscribers %}
+    - ${{ ref }}
+{%- endfor %}

@@ -11,4 +11,13 @@ runtime:
     requests: {cpu: 100m, memory: 256Mi}
     limits: {cpu: 500m, memory: 1Gi}
   envFromSecretNames: []
+{%- if values.kafkaResourceName %}
+  env:
+    - name: KAFKA_BOOTSTRAP_SERVERS
+      valueFrom:
+        configMapKeyRef:
+          name: ${{ values.kafkaResourceName }}-${{ values.environment }}-connection
+          key: KAFKA_BOOTSTRAP_SERVERS
+{%- else %}
   env: []
+{%- endif %}
