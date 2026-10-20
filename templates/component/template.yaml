@@ -396,10 +396,27 @@ spec:
             $docs := $type(contracts) = "array" ? contracts : $type(contracts) = "object" ? [contracts] : [];
             [$map($zip(apis, $docs), function($pair){(
               $d := $pair[1];
-              $assert($substring($d.asyncapi, 0, 2) = "3.", "AsyncAPI 3.x is required");
+              $assert($substring($d.asyncapi, 0, 4) in ["3.0.", "3.1."], "AsyncAPI 3.0.x or 3.1.x is required");
+              $resolve := function($obj) {(
+                $ref := $lookup($obj, "$ref");
+                $ref ? (
+                  $assert($substring($ref, 0, 2) = "#/", "Only internal contract references are supported");
+                  $resolve($reduce($split($substring($ref, 2), "/"), function($v, $key) {
+                    $lookup($v, $replace($replace($key, /~1/, "/"), /~0/, "~"))
+                  }, $d))
+                ) : $obj
+              )};
               $map($pair[0].messages, function($m){(
-                $ch := $lookup($d.channels, $m.channel);
-                $assert($exists($lookup($ch.messages, $m.message)), "Unknown channel/message: " & $m.channel & "/" & $m.message)
+                $ch := $resolve($lookup($d.channels, $m.channel));
+                $msg := $resolve($lookup($ch.messages, $m.message));
+                $assert($exists($msg), "Unknown channel/message: " & $m.channel & "/" & $m.message);
+                $servers := $exists($ch.servers) ? [$map($ch.servers, $resolve)] : [$d.servers.*];
+                $assert($count($servers) > 0 and $count($filter($servers, function($s){$not($s.protocol in ["kafka", "kafka-secure"])})) = 0,
+                  "Selected event channels must use Kafka transport");
+                $payload := $resolve($msg.payload);
+                $format := $payload.schemaFormat;
+                $assert($exists($msg.payload) and ($not($exists($format)) or $contains($format, /^application\/(schema\+json|vnd\.aai\.asyncapi\+json|vnd\.apache\.avro;version=1\.)/)),
+                  "Selected messages require Avro or JSON Schema payloads")
               )});
               $pair[0]
             )})]

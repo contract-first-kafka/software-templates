@@ -20,7 +20,7 @@ test('Kafka selection validates type and exact channel/message independent of op
  expect(apis[0].content_url).toContain('branch%3Dlatest');
  expect(apis[0].messages).toEqual(messages);
  const validate=jsonata(step('validateEventSelections').input.expression);
- expect(await validate.evaluate({apis,contracts:[{asyncapi:'3.1.0',channels:{orders:{messages:{accepted:{}}}}}]})).toEqual(apis);
+ expect(await validate.evaluate({apis,contracts:[{asyncapi:'3.1.0',servers:{kafka:{protocol:'kafka'}},channels:{orders:{messages:{accepted:{payload:{type:'object'}}}}}}]})).toEqual(apis);
  await expect(validate.evaluate({apis,contracts:[{asyncapi:'3.1.0',channels:{}}]})).rejects.toMatchObject({message: expect.stringContaining('Unknown channel/message')});
  entity.spec.type='openapi';
  await expect(jsonata(step('resolveEventMetadata').input.expression).evaluate({entities:[entity],selections:[{version:'latest',messages}]})).rejects.toMatchObject({message: expect.stringContaining('AsyncAPI entity')});
