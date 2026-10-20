@@ -162,7 +162,7 @@ test('consumed contracts use one Apicurio fetch and parse path', () => {
     },
   });
   expect(template.spec.steps.filter(candidate =>
-    candidate.action === 'fetch:plain:file')).toHaveLength(1);
+    candidate.action === 'fetch:plain:file' && candidate.id === 'fetchConsumedContracts')).toHaveLength(1);
   expect(source).not.toContain('provided-contract/');
 });
 

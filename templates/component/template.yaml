@@ -38,7 +38,7 @@ spec:
             - spring-boot-openapi
             - nodejs-openapi
           enumNames:
-            - Quarkus Camel OpenAPI Java DSL (Recommended)
+            - Quarkus Camel Java DSL — REST and Kafka (Recommended)
             - Quarkus Camel OpenAPI YAML DSL
             - Spring Boot Camel OpenAPI Java DSL
             - Spring Boot OpenAPI
@@ -73,13 +73,67 @@ spec:
           oneOf:
             - properties:
                 implementationProfile:
-                  enum: [quarkus-camel-openapi, quarkus-camel-openapi-yaml]
+                  enum: [quarkus-camel-openapi]
+                kafkaResourceRef:
+                  title: Kafka Resource (required for event contracts)
+                  type: string
+                  ui:field: EntityPicker
+                  ui:options:
+                    allowArbitraryValues: false
+                    catalogFilter: [{kind: Resource, spec.profile: kafka}]
+                eventApis:
+                  title: Kafka event contracts
+                  description: Select only the messages this Component publishes or consumes. Roles describe this Component, independently of contract operations.
+                  type: array
+                  default: []
+                  items:
+                    type: object
+                    required: [apiRef, version, messages]
+                    properties:
+                      apiRef:
+                        title: AsyncAPI contract
+                        type: string
+                        ui:field: EntityPicker
+                        ui:options:
+                          allowArbitraryValues: false
+                          catalogFilter: [{kind: API, spec.type: asyncapi}]
+                      version:
+                        title: Contract version
+                        type: string
+                        default: latest
+                        pattern: '^(latest|v[0-9]+(\.[0-9]+){0,2}(-[0-9A-Za-z]+([.-][0-9A-Za-z]+)*)?|[0-9a-fA-F]{40})$'
+                      messages:
+                        title: Selected messages
+                        description: Channel and message keys from the selected contract (for example orders / accepted). Selections are validated against that version.
+                        type: array
+                        minItems: 1
+                        items:
+                          type: object
+                          required: [channel, message, role]
+                          properties:
+                            channel: {title: Channel key, type: string, pattern: '^[A-Za-z][A-Za-z0-9_-]*$'}
+                            message: {title: Message key, type: string, pattern: '^[A-Za-z][A-Za-z0-9_-]*$'}
+                            role: {title: Component role, type: string, enum: [publish, consume]}
+                            restOperation:
+                              title: Provided REST operationId (optional, publish only)
+                              description: Forward the JSON request body to this message. The provided OpenAPI operation must exist and use a compatible body.
+                              type: string
+                              pattern: '^[A-Za-z][A-Za-z0-9_-]*$'
                 quarkusBuildTarget:
                   title: Quarkus build target
                   type: string
                   default: jvm
                   enum: [jvm, native]
                   enumNames: [JVM (Recommended), Native executable]
+              required: [quarkusBuildTarget]
+            - properties:
+                implementationProfile:
+                  enum: [quarkus-camel-openapi-yaml]
+                quarkusBuildTarget:
+                  title: Quarkus build target
+                  type: string
+                  default: jvm
+                  enum: [jvm, native]
               required: [quarkusBuildTarget]
             - properties:
                 implementationProfile:
@@ -134,8 +188,10 @@ spec:
         data:
           implementationProfile: ${{ parameters.implementationProfile }}
           quarkusBuildTarget: ${{ parameters.quarkusBuildTarget or 'jvm' }}
+          events: ${{ parameters.eventApis or [] }}
         expression: >-
           (
+            $assert($count(events) = 0 or (implementationProfile = "quarkus-camel-openapi" and quarkusBuildTarget = "jvm"), "Kafka contracts require Quarkus Camel Java DSL with the JVM build target");
             implementationProfile in ["quarkus-camel-openapi", "quarkus-camel-openapi-yaml"]
               ? (quarkusBuildTarget = "native" ? "quarkus-native" : "quarkus-jvm")
               : implementationProfile in ["spring-boot-camel-openapi", "spring-boot-openapi"]
@@ -259,6 +315,112 @@ spec:
             )})]
             }
           )
+    - id: fetchKafkaResource
+      name: Fetch Kafka Resource
+      if: ${{ parameters.eventApis | length > 0 }}
+      action: catalog:fetch
+      input:
+        entityRef: ${{ parameters.kafkaResourceRef }}
+        defaultKind: Resource
+        defaultNamespace: default
+    - id: validateKafkaResource
+      name: Validate System Kafka Resource
+      if: ${{ parameters.eventApis | length > 0 }}
+      action: roadiehq:utils:jsonata
+      input:
+        data:
+          resource: ${{ steps.fetchKafkaResource.output.entity }}
+          system: ${{ parameters.systemRef }}
+        expression: >-
+          ($assert(resource.spec.profile = "kafka" and resource.spec.system = system,
+          "Select a Kafka Resource in this System"); resource.metadata.name)
+    - id: fetchEventApis
+      name: Fetch selected AsyncAPI entities
+      each: ${{ parameters.eventApis or [] }}
+      action: catalog:fetch
+      input:
+        entityRef: ${{ each.value.apiRef }}
+        defaultKind: API
+        defaultNamespace: default
+    - id: resolveEventMetadata
+      name: Resolve selected Kafka contracts
+      action: roadiehq:utils:jsonata
+      input:
+        data:
+          entities: ${{ steps.fetchEventApis.output.entity if parameters.eventApis | length > 0 else [] }}
+          selections: ${{ parameters.eventApis or [] }}
+          base: ${{ steps.fetchTarget.output.entity.spec.platform.schemaRegistry.apiUrl }}
+        expression: >-
+          (
+            $entities := $type(entities) = "array" ? entities : $type(entities) = "object" ? [entities] : [];
+            [$map($zip($entities, selections), function($pair) {(
+              $e := $pair[0]; $s := $pair[1];
+              $assert($e.spec.type = "asyncapi", "Kafka selections require an AsyncAPI entity");
+              $a := $e.metadata.annotations;
+              $g := $lookup($a, "contract-first-idp.github.io/schema-registry-group-id");
+              $id := $lookup($a, "contract-first-idp.github.io/schema-registry-artifact-id");
+              $assert($g and $id, "AsyncAPI registry coordinates are required");
+              $ns := $e.metadata.namespace ? $e.metadata.namespace : "default";
+              $assert($count($s.messages) > 0, "Select at least one channel/message and role");
+              $assert($count($filter($s.messages, function($m){$not($m.role in ["publish", "consume"])})) = 0, "Message role must be publish or consume");
+              {"ref": "api:" & $ns & "/" & $e.metadata.name,
+               "registry_group_id": $g, "registry_artifact_id": $id,
+               "alias": $ns & "-" & $e.metadata.name,
+               "version": $s.version, "messages": $s.messages,
+               "content_url": $replace(base, /\/$/, "") & "/groups/" & $encodeUrlComponent($g) & "/artifacts/" & $encodeUrlComponent($id) & "/versions/" & $encodeUrlComponent($s.version = "latest" ? "branch=latest" : $s.version) & "/content"}
+            )})]
+          )
+    - id: fetchEventContracts
+      name: Fetch selected AsyncAPI versions from Apicurio
+      each: ${{ steps.resolveEventMetadata.output.result }}
+      action: fetch:plain:file
+      input:
+        url: ${{ each.value.content_url }}
+        targetPath: event-contracts/${{ each.key }}.yaml
+    - id: parseEventContracts
+      name: Parse selected AsyncAPI contracts
+      each: ${{ steps.resolveEventMetadata.output.result }}
+      action: roadiehq:utils:fs:parse
+      input:
+        path: event-contracts/${{ each.key }}.yaml
+        parser: yaml
+    - id: validateEventSelections
+      name: Validate message selections against contract versions
+      action: roadiehq:utils:jsonata
+      input:
+        data:
+          apis: ${{ steps.resolveEventMetadata.output.result }}
+          contracts: ${{ steps.parseEventContracts.output.content if parameters.eventApis | length > 0 else [] }}
+        expression: >-
+          (
+            $docs := $type(contracts) = "array" ? contracts : $type(contracts) = "object" ? [contracts] : [];
+            [$map($zip(apis, $docs), function($pair){(
+              $d := $pair[1];
+              $assert($substring($d.asyncapi, 0, 4) in ["3.0.", "3.1."], "AsyncAPI 3.0.x or 3.1.x is required");
+              $resolve := function($obj) {(
+                $ref := $lookup($obj, "$ref");
+                $ref ? (
+                  $assert($substring($ref, 0, 2) = "#/", "Only internal contract references are supported");
+                  $resolve($reduce($split($substring($ref, 2), "/"), function($v, $key) {
+                    $lookup($v, $replace($replace($key, /~1/, "/"), /~0/, "~"))
+                  }, $d))
+                ) : $obj
+              )};
+              $map($pair[0].messages, function($m){(
+                $ch := $resolve($lookup($d.channels, $m.channel));
+                $msg := $resolve($lookup($ch.messages, $m.message));
+                $assert($exists($msg), "Unknown channel/message: " & $m.channel & "/" & $m.message);
+                $servers := $exists($ch.servers) ? [$map($ch.servers, $resolve)] : [$d.servers.*];
+                $assert($count($servers) > 0 and $count($filter($servers, function($s){$not($s.protocol in ["kafka", "kafka-secure"])})) = 0,
+                  "Selected event channels must use Kafka transport");
+                $payload := $resolve($msg.payload);
+                $format := $payload.schemaFormat;
+                $assert($exists($msg.payload) and ($not($exists($format)) or $contains($format, /^application\/(schema\+json|vnd\.aai\.asyncapi\+json|vnd\.apache\.avro;version=1\.)/)),
+                  "Selected messages require Avro or JSON Schema payloads")
+              )});
+              $pair[0]
+            )})]
+          )
     - id: renderImplementation
       name: Render selected implementation
       action: fetch:template
@@ -282,6 +444,19 @@ spec:
           schema_registry_api_url: ${{ steps.fetchTarget.output.entity.spec.platform.schemaRegistry.apiUrl }}
           provided_api: ${{ steps.resolveApiMetadata.output.result.provided_api }}
           consumed_apis: ${{ steps.discoverConsumedOperations.output.result.consumed_apis }}
+          event_apis: ${{ steps.validateEventSelections.output.result }}
+    - id: renderKafkaRuntime
+      name: Render Kafka runtime and message selections
+      if: ${{ parameters.eventApis | length > 0 }}
+      action: fetch:template
+      input:
+        url: ../../skeletons/component/capabilities/kafka
+        targetPath: component-repo
+        values:
+          java_package: ${{ steps.fetchSystem.output.entity.spec.groupId }}.${{ parameters.componentName | replace('-', '') }}
+          folder_java_package: ${{ steps.fetchSystem.output.entity.spec.groupId | replace('.', '/') }}/${{ parameters.componentName | replace('-', '') }}
+          event_apis: ${{ steps.validateEventSelections.output.result }}
+          provided_api: ${{ steps.resolveApiMetadata.output.result.provided_api }}
     - id: renderBase
       name: Render Component metadata
       action: fetch:template
@@ -300,6 +475,7 @@ spec:
           schemaRegistryApiUrl: ${{ steps.fetchTarget.output.entity.spec.platform.schemaRegistry.apiUrl }}
           provided_api: ${{ steps.resolveApiMetadata.output.result.provided_api }}
           consumed_apis: ${{ steps.discoverConsumedOperations.output.result.consumed_apis }}
+          event_apis: ${{ steps.validateEventSelections.output.result }}
           scmProvider: ${{ steps.fetchDomain.output.entity.metadata.annotations['contract-first-idp.github.io/scm-provider'] or 'github' }}
           scmHost: ${{ steps.fetchDomain.output.entity.metadata.annotations['contract-first-idp.github.io/scm-host'] }}
           domainOrg: ${{ steps.fetchDomain.output.entity.metadata.annotations['contract-first-idp.github.io/domain-org'] }}
@@ -328,6 +504,7 @@ spec:
         targetPath: system-pr/components/${{ parameters.componentName }}/environments
         values:
           environment: ${{ each.value }}
+          kafkaResourceName: ${{ steps.validateKafkaResource.output.result if parameters.eventApis | length > 0 else '' }}
           buildEnvironment: ${{ steps.fetchDomain.output.entity.spec.environments.build }}
     - id: publish
       name: Publish Component repository
