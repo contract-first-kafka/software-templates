@@ -36,3 +36,80 @@ test('Component API relationships include only selected message roles, without d
  expect(entity.spec.providesApis).toEqual(['api:default/rest','api:default/events']);
  expect(entity.spec.consumesApis).toEqual(['api:default/events']);
 });
+
+const eventEntity = {metadata: {name: 'events', annotations: {
+ 'contract-first-idp.github.io/schema-registry-group-id': 'test',
+ 'contract-first-idp.github.io/schema-registry-artifact-id': 'events',
+}}, spec: {type: 'asyncapi'}};
+const contract = {
+ asyncapi: '3.1.0', servers: {broker: {protocol: 'kafka'}},
+ channels: {
+  orders: {address: 'orders', messages: {accepted: {$ref: '#/components/messages/Accepted'}, rejected: {payload: {type: 'object'}}}},
+  audit: {address: 'orders', messages: {recorded: {$ref: '#/components/messages/Accepted'}}},
+ },
+ components: {messages: {Accepted: {payload: {type: 'object'}}}},
+ operations: {irrelevant: {action: 'receive', channel: {$ref: '#/channels/orders'}}},
+};
+async function eventApis(selection, doc = contract) {
+ const apis = await jsonata(step('resolveEventMetadata').input.expression).evaluate({
+  entities: [eventEntity], selections: [{version: 'latest', ...selection}], base: 'https://registry/apis/registry/v3',
+ });
+ const resolved = await jsonata(step('resolveEventSelections').input.expression).evaluate({apis, contracts: [doc]});
+ return jsonata(step('validateEventSelections').input.expression).evaluate({apis: resolved, contracts: [doc]});
+}
+const explicit = role => [
+ {channel: 'orders', message: 'accepted', role},
+ {channel: 'orders', message: 'rejected', role},
+ {channel: 'audit', message: 'recorded', role},
+];
+const renderEvents = event_apis => {
+ const nunjucks = require('nunjucks');
+ const env = new nunjucks.Environment(null, {autoescape: false, tags: {variableStart: '${{', variableEnd: '}}'}});
+ return env.renderString(fs.readFileSync(path.join(root, 'skeletons/component/capabilities/kafka/src/main/resources/event-contracts.json'), 'utf8'), {values: {event_apis}});
+};
+test.each(['publish', 'consume'])('%s expands every channel/message without changing downstream output', async role => {
+ const simple = await eventApis({role});
+ const advanced = await eventApis({messages: explicit(role)});
+ expect(simple[0].messages).toEqual(explicit(role));
+ expect(simple).toEqual(advanced);
+ expect(renderEvents(simple)).toBe(renderEvents(advanced));
+ expect(JSON.parse(renderEvents(simple))).toEqual(simple);
+});
+test('Advanced overrides expansion, preserves mixed roles and REST forwarding, and accepts legacy input', async () => {
+ const messages = [{channel:'orders',message:'accepted',role:'publish',restOperation:'submit'}, {channel:'audit',message:'recorded',role:'consume'}];
+ expect(await eventApis({role:'consume',advanced:true,messages})).toEqual(await eventApis({messages}));
+ expect((await eventApis({role:'publish',messages}))[0].messages).toEqual(messages);
+});
+test.each(['3.0.0','3.1.0'])('expands singleton and referenced channels for AsyncAPI %s', async asyncapi => {
+ const doc = {...contract, asyncapi, channels: {alias: {$ref:'#/components/channels/shared'}}, components:{channels:{shared:{address:'orders',messages:{accepted:{payload:{type:'object'}}}}}}};
+ expect((await eventApis({role:'consume'},doc))[0].messages).toEqual([{channel:'alias',message:'accepted',role:'consume'}]);
+});
+test.each([
+ [{role:'both'}, contract, 'Component role'],
+ [{role:'publish',advanced:true}, contract, 'Select at least'],
+ [{role:'publish',messages:[]}, contract, 'Select at least'],
+ [{messages:[{channel:'orders',message:'missing',role:'publish'}]},contract,'Unknown channel/message'],
+ [{messages:[{channel:'missing',message:'accepted',role:'publish'}]},contract,'Unknown channel/message'],
+ [{messages:[{channel:'orders',message:'accepted',role:'both'}]},contract,'Message role'],
+ [{messages:[{channel:'orders',role:'publish'}]},contract,'Unknown channel/message'],
+ [{role:'publish'},{...contract,asyncapi:'2.6.0'},'AsyncAPI 3.0.x or 3.1.x'],
+ [{role:'consume'},{...contract,servers:{http:{protocol:'http'}}},'Kafka transport'],
+ [{role:'publish'},{...contract,channels:{}},'Select at least'],
+ [{role:'publish'},{...contract,channels:{orders:{messages:{bad:{payload:{schemaFormat:'application/xml'}}}}}},'Avro or JSON Schema'],
+])('invalid selection or contract fails through the common validation: %j', async (selection, doc, error) => {
+ await expect(eventApis(selection, doc)).rejects.toMatchObject({message:expect.stringContaining(error)});
+});
+test('no event selections leaves OpenAPI-only creation unchanged', async () => {
+ const resolved = await jsonata(step('resolveEventSelections').input.expression).evaluate({apis:[],contracts:[]});
+ expect(resolved).toEqual([]);
+ expect(await jsonata(step('validateEventSelections').input.expression).evaluate({apis:resolved,contracts:[]})).toEqual([]);
+});
+test('native form offers publish/consume and hides explicit messages behind Advanced configuration', () => {
+ const item = template.spec.parameters[0].dependencies.implementationProfile.oneOf[0].properties.eventApis.items;
+ expect(item.properties.role.enum).toEqual(['publish','consume']);
+ expect(item.properties.version.default).toBe('latest');
+ expect(item.properties.apiRef['ui:field']).toBe('EntityPicker');
+ expect(item.properties.messages).toBeUndefined();
+ expect(item.dependencies.advanced.oneOf[1].properties.messages.items.properties.role.enum).toEqual(['publish','consume']);
+ expect(step('validateEventSelections').input.data.apis).toContain('steps.resolveEventSelections.output.result');
+});
