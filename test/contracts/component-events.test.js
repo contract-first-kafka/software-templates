@@ -113,3 +113,8 @@ test('native form offers publish/consume and hides explicit messages behind Adva
  expect(item.dependencies.advanced.oneOf[1].properties.messages.items.properties.role.enum).toEqual(['publish','consume']);
  expect(step('validateEventSelections').input.data.apis).toContain('steps.resolveEventSelections.output.result');
 });
+
+test('turning Advanced off ignores stale hidden form selections', async () => {
+ const messages = [{channel:'orders',message:'accepted',role:'consume'}];
+ expect(await eventApis({role:'publish',advanced:false,messages})).toEqual(await eventApis({role:'publish'}));
+});

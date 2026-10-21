@@ -424,7 +424,7 @@ spec:
                   }, $d))
                 ) : $obj
               )};
-              $explicit := $exists($api.messages) or $api.advanced = true;
+              $explicit := $api.advanced = true or ($not($exists($api.advanced)) and $exists($api.messages));
               $assert($explicit or $api.role in ["publish", "consume"], "Component role must be publish or consume");
               $messages := $explicit ? $api.messages : $reduce($keys($d.channels), function($all, $channel){(
                 $ch := $resolve($lookup($d.channels, $channel));
