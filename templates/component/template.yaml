@@ -1,8 +1,8 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: component-golden-path
-  title: Component Golden Path
+  name: component-kafka-ux-final
+  title: Component Golden Path — Kafka UX final validation
   description: Create a complete Tekton-built Component repository.
   annotations:
     backstage-gitea.io/github-compatible: 'true'
