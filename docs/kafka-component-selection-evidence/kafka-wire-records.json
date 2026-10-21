@@ -1,0 +1,82 @@
+[
+  {
+    "topic": "ux.shipments",
+    "partition": 0,
+    "offset": 0,
+    "wireBytes": 70,
+    "headers": {
+      "ce_specversion": "1.0",
+      "ce_id": "5ef63df6-90ab-45f0-a2b9-b019a92240fd",
+      "ce_source": "/shipments",
+      "ce_type": "demo.shipment.dispatched",
+      "content-type": "application/json",
+      "apicurio.value.globalId": "17",
+      "apicurio.value.msgType": "com.fasterxml.jackson.databind.node.ObjectNode"
+    },
+    "payload": {
+      "orderId": "ux-shipment-20261021",
+      "trackingId": "tracking-ux-20261021"
+    },
+    "valid": true
+  },
+  {
+    "topic": "ux.parcels",
+    "partition": 0,
+    "offset": 0,
+    "wireBytes": 29,
+    "headers": {
+      "ce_specversion": "1.0",
+      "ce_id": "e814e6d7-8006-4b4e-85f5-940a03c130e5",
+      "ce_source": "/orders",
+      "ce_type": "demo.order.accepted",
+      "content-type": "application/avro",
+      "apicurio.value.globalId": "15",
+      "apicurio.value.encoding": "BINARY"
+    },
+    "payload": {
+      "orderId": "ux-accepted-20261021",
+      "total": 89.25
+    },
+    "valid": true
+  },
+  {
+    "topic": "ux.parcels",
+    "partition": 0,
+    "offset": 1,
+    "wireBytes": 39,
+    "headers": {
+      "ce_specversion": "1.0",
+      "ce_id": "7cc9abbe-9951-413a-aba7-23e81cf78f61",
+      "ce_source": "/orders",
+      "ce_type": "demo.order.cancelled",
+      "content-type": "application/avro",
+      "apicurio.value.globalId": "16",
+      "apicurio.value.encoding": "BINARY"
+    },
+    "payload": {
+      "orderId": "ux-cancelled-20261021",
+      "reason": "customer-request"
+    },
+    "valid": true
+  },
+  {
+    "topic": "ux.parcels",
+    "partition": 0,
+    "offset": 2,
+    "wireBytes": 26,
+    "headers": {
+      "ce_specversion": "1.0",
+      "ce_id": "457df638-b61a-4eeb-8535-121fbdc7f18d",
+      "ce_source": "/orders",
+      "ce_type": "demo.order.accepted",
+      "content-type": "application/avro",
+      "apicurio.value.globalId": "15",
+      "apicurio.value.encoding": "BINARY"
+    },
+    "payload": {
+      "orderId": "ux-audit-20261021",
+      "total": 17.5
+    },
+    "valid": true
+  }
+]

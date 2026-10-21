@@ -1,0 +1,25 @@
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaTopic
+metadata:
+  name: ux-parcels
+  namespace: parcel-dispatch-dev
+  labels:
+    strimzi.io/cluster: parcel-broker-dev
+    app.kubernetes.io/part-of: kafka-ux-validation
+spec:
+  topicName: ux.parcels
+  partitions: 1
+  replicas: 1
+---
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaTopic
+metadata:
+  name: ux-shipments
+  namespace: parcel-dispatch-dev
+  labels:
+    strimzi.io/cluster: parcel-broker-dev
+    app.kubernetes.io/part-of: kafka-ux-validation
+spec:
+  topicName: ux.shipments
+  partitions: 1
+  replicas: 1

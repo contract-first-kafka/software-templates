@@ -1,0 +1,21 @@
+{
+  "templateRef": "template:default/component-kafka-ux-final",
+  "values": {
+    "implementationProfile": "quarkus-camel-openapi",
+    "implementsApi": false,
+    "consumedApis": [],
+    "eventApis": [
+      {
+        "apiRef": "api:default/parcel-lifecycle",
+        "version": "latest",
+        "role": "consume",
+        "advanced": false
+      }
+    ],
+    "quarkusBuildTarget": "jvm",
+    "componentName": "parcel-handler",
+    "description": "Disposable parcel event consumer",
+    "systemRef": "system:default/parcel-dispatch",
+    "kafkaResourceRef": "resource:default/parcel-broker"
+  }
+}

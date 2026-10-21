@@ -1,0 +1,26 @@
+INFO exec -a "java" java -XX:MaxRAMPercentage=80.0 -XX:+UseParallelGC -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -XX:+ExitOnOutOfMemoryError -Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -javaagent:/opt/jolokia/jolokia-javaagent.jar=host=0.0.0.0,port=8778,protocol=https,useSslClientAuthentication=true,caCert=/var/run/secrets/kubernetes.io/serviceaccount/service-ca.crt -cp "." -jar /deployments/quarkus-run.jar 
+INFO running in /deployments
+I> No access restrictor found, access to any MBean is allowed
+Jolokia: Agent started with URL https://10.233.0.98:8778/jolokia/
+2026-10-21 21:44:08,281 INFO  [org.apache.camel.quarkus.core.CamelBootstrapRecorder] (main) Apache Camel Quarkus 3.33.0.redhat-00008 is starting
+2026-10-21 21:44:08,354 INFO  [org.apache.camel.main.MainSupport] (main) Apache Camel (Main) 4.18.1.redhat-00026 is starting
+2026-10-21 21:44:08,576 INFO  [org.apache.camel.main.BaseMainSupport] (main) Auto-configuration summary
+2026-10-21 21:44:08,576 INFO  [org.apache.camel.main.BaseMainSupport] (main)     [MicroProfilePropertiesSource] camel.context.name = parcel-sender
+2026-10-21 21:44:08,576 INFO  [org.apache.camel.main.BaseMainSupport] (main)     [MicroProfilePropertiesSource] camel.rest.bindingMode = json
+2026-10-21 21:44:08,576 INFO  [org.apache.camel.main.BaseMainSupport] (main)     [MicroProfilePropertiesSource] camel.rest.bindingPackageScan = io.github.contractfirstkafka.kafkaux.parceldispatch.parcelsender
+2026-10-21 21:44:08,576 INFO  [org.apache.camel.main.BaseMainSupport] (main)     [MicroProfilePropertiesSource] camel.component.rest-openapi.mockIncludePattern = file:camel-mock/**,classpath:camel-mock/**
+2026-10-21 21:44:11,765 INFO  [org.apache.camel.impl.engine.AbstractCamelContext] (main) Apache Camel 4.18.1.redhat-00026 (parcel-sender) is starting
+2026-10-21 21:44:12,653 INFO  [org.apache.camel.impl.engine.AbstractCamelContext] (main) Routes startup (total:8)
+2026-10-21 21:44:12,653 INFO  [org.apache.camel.impl.engine.AbstractCamelContext] (main)     Started publish-default-parcel-lifecycle.orders.accepted (direct://events.default-parcel-lifecycle.orders.accepted)
+2026-10-21 21:44:12,653 INFO  [org.apache.camel.impl.engine.AbstractCamelContext] (main)     Started ingress-default-parcel-lifecycle.orders.accepted (platform-http:///events/default-parcel-lifecycle.orders.accepted)
+2026-10-21 21:44:12,653 INFO  [org.apache.camel.impl.engine.AbstractCamelContext] (main)     Started publish-default-parcel-lifecycle.orders.cancelled (direct://events.default-parcel-lifecycle.orders.cancelled)
+2026-10-21 21:44:12,653 INFO  [org.apache.camel.impl.engine.AbstractCamelContext] (main)     Started ingress-default-parcel-lifecycle.orders.cancelled (platform-http:///events/default-parcel-lifecycle.orders.cancelled)
+2026-10-21 21:44:12,653 INFO  [org.apache.camel.impl.engine.AbstractCamelContext] (main)     Started publish-default-parcel-lifecycle.audit.accepted (direct://events.default-parcel-lifecycle.audit.accepted)
+2026-10-21 21:44:12,653 INFO  [org.apache.camel.impl.engine.AbstractCamelContext] (main)     Started ingress-default-parcel-lifecycle.audit.accepted (platform-http:///events/default-parcel-lifecycle.audit.accepted)
+2026-10-21 21:44:12,653 INFO  [org.apache.camel.impl.engine.AbstractCamelContext] (main)     Started publish-default-parcel-lifecycle.shipments.dispatched (direct://events.default-parcel-lifecycle.shipments.dispatched)
+2026-10-21 21:44:12,653 INFO  [org.apache.camel.impl.engine.AbstractCamelContext] (main)     Started ingress-default-parcel-lifecycle.shipments.dispatched (platform-http:///events/default-parcel-lifecycle.shipments.dispatched)
+2026-10-21 21:44:12,654 INFO  [org.apache.camel.impl.engine.AbstractCamelContext] (main) Apache Camel 4.18.1.redhat-00026 (parcel-sender) started in 887ms (build:0ms init:0ms start:887ms boot:5s408ms)
+2026-10-21 21:44:12,868 INFO  [io.quarkus] (main) parcel-sender 1.0-SNAPSHOT on JVM (powered by Quarkus 3.33.2.redhat-00004) started in 8.506s. Listening on: http://0.0.0.0:8080. Management interface listening on http://0.0.0.0:9000.
+2026-10-21 21:44:12,868 INFO  [io.quarkus] (main) Profile prod activated. 
+2026-10-21 21:44:12,868 INFO  [io.quarkus] (main) Installed features: [apicurio-registry-avro, apicurio-registry-json-schema, camel-attachments, camel-bean, camel-core, camel-direct, camel-http, camel-jackson, camel-jaxb, camel-jsonpath, camel-kafka, camel-log, camel-management, camel-microprofile-health, camel-mock, camel-platform-http, camel-rest, camel-rest-openapi, camel-xml-io-dsl, camel-yaml-dsl, cdi, kafka-client, smallrye-context-propagation, smallrye-health, vertx]
+2026-10-21 21:44:53,455 WARN  [com.networknt.schema.UnknownKeywordFactory] (executor-thread-1) Unknown keyword $defs - you should define your own Meta Schema. If the keyword is irrelevant for validation, just use a NonValidationKeyword or if it should generate annotations AnnotationKeyword

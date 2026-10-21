@@ -1,0 +1,171 @@
+{
+  "artifacts": [
+    {
+      "createdOn": "2026-10-21T21:34:38Z",
+      "owner": "service-account-kafka-ux-check-apicurio",
+      "artifactType": "ASYNCAPI",
+      "modifiedOn": "2026-10-21T21:34:38Z",
+      "modifiedBy": "service-account-kafka-ux-check-apicurio",
+      "groupId": "io.github.contractfirstkafka.kafkaux.parceldispatch",
+      "artifactId": "parcel-lifecycle",
+      "versions": [
+        {
+          "createdOn": "2026-10-21T21:34:38Z",
+          "owner": "service-account-kafka-ux-check-apicurio",
+          "artifactType": "ASYNCAPI",
+          "state": "ENABLED",
+          "globalId": 14,
+          "version": "569477d053e504bb31afb27d9acae7aa53c695f9",
+          "contentId": 18,
+          "artifactId": "parcel-lifecycle",
+          "groupId": "io.github.contractfirstkafka.kafkaux.parceldispatch",
+          "modifiedBy": "service-account-kafka-ux-check-apicurio",
+          "modifiedOn": "2026-10-21T21:34:38Z"
+        }
+      ]
+    },
+    {
+      "createdOn": "2026-10-21T21:34:38Z",
+      "owner": "service-account-kafka-ux-check-apicurio",
+      "artifactType": "JSON",
+      "modifiedOn": "2026-10-21T21:34:38Z",
+      "modifiedBy": "service-account-kafka-ux-check-apicurio",
+      "groupId": "io.github.contractfirstkafka.kafkaux.parceldispatch",
+      "artifactId": "parcel-lifecycle.payload.327ed3b12725f199ebf95f84",
+      "versions": [
+        {
+          "createdOn": "2026-10-21T21:34:38Z",
+          "owner": "service-account-kafka-ux-check-apicurio",
+          "artifactType": "JSON",
+          "state": "ENABLED",
+          "globalId": 17,
+          "version": "569477d053e504bb31afb27d9acae7aa53c695f9",
+          "contentId": 4,
+          "artifactId": "parcel-lifecycle.payload.327ed3b12725f199ebf95f84",
+          "groupId": "io.github.contractfirstkafka.kafkaux.parceldispatch",
+          "modifiedBy": "service-account-kafka-ux-check-apicurio",
+          "modifiedOn": "2026-10-21T21:34:38Z"
+        }
+      ]
+    },
+    {
+      "createdOn": "2026-10-21T21:34:38Z",
+      "owner": "service-account-kafka-ux-check-apicurio",
+      "artifactType": "AVRO",
+      "modifiedOn": "2026-10-21T21:34:38Z",
+      "modifiedBy": "service-account-kafka-ux-check-apicurio",
+      "groupId": "io.github.contractfirstkafka.kafkaux.parceldispatch",
+      "artifactId": "parcel-lifecycle.payload.964408e6617409f849edeada",
+      "versions": [
+        {
+          "createdOn": "2026-10-21T21:34:38Z",
+          "owner": "service-account-kafka-ux-check-apicurio",
+          "artifactType": "AVRO",
+          "state": "ENABLED",
+          "globalId": 16,
+          "version": "569477d053e504bb31afb27d9acae7aa53c695f9",
+          "contentId": 20,
+          "artifactId": "parcel-lifecycle.payload.964408e6617409f849edeada",
+          "groupId": "io.github.contractfirstkafka.kafkaux.parceldispatch",
+          "modifiedBy": "service-account-kafka-ux-check-apicurio",
+          "modifiedOn": "2026-10-21T21:34:38Z"
+        }
+      ]
+    },
+    {
+      "createdOn": "2026-10-21T21:34:38Z",
+      "owner": "service-account-kafka-ux-check-apicurio",
+      "artifactType": "AVRO",
+      "modifiedOn": "2026-10-21T21:34:38Z",
+      "modifiedBy": "service-account-kafka-ux-check-apicurio",
+      "groupId": "io.github.contractfirstkafka.kafkaux.parceldispatch",
+      "artifactId": "parcel-lifecycle.payload.ecc15865edfa2f436230fa81",
+      "versions": [
+        {
+          "createdOn": "2026-10-21T21:34:38Z",
+          "owner": "service-account-kafka-ux-check-apicurio",
+          "artifactType": "AVRO",
+          "state": "ENABLED",
+          "globalId": 15,
+          "version": "569477d053e504bb31afb27d9acae7aa53c695f9",
+          "contentId": 19,
+          "artifactId": "parcel-lifecycle.payload.ecc15865edfa2f436230fa81",
+          "groupId": "io.github.contractfirstkafka.kafkaux.parceldispatch",
+          "modifiedBy": "service-account-kafka-ux-check-apicurio",
+          "modifiedOn": "2026-10-21T21:34:38Z"
+        }
+      ]
+    }
+  ],
+  "microcks": [
+    {
+      "id": "6ad92ff1f2aecbc8824fd298",
+      "name": "Parcel dispatch events",
+      "version": "1.0.0",
+      "type": "EVENT",
+      "metadata": {
+        "createdOn": 1792618481625,
+        "lastUpdate": 1792618481625
+      },
+      "sourceArtifact": "specification.yaml",
+      "operations": [
+        {
+          "name": "RECEIVE receiveOrders",
+          "method": "RECEIVE",
+          "bindings": {
+            "KAFKA": {
+              "type": "KAFKA",
+              "persistent": false
+            }
+          },
+          "defaultDelay": 10,
+          "resourcePaths": [
+            "ux.parcels"
+          ]
+        },
+        {
+          "name": "RECEIVE receiveCancellations",
+          "method": "RECEIVE",
+          "bindings": {
+            "KAFKA": {
+              "type": "KAFKA",
+              "persistent": false
+            }
+          },
+          "defaultDelay": 10,
+          "resourcePaths": [
+            "ux.parcels"
+          ]
+        },
+        {
+          "name": "RECEIVE receiveAudit",
+          "method": "RECEIVE",
+          "bindings": {
+            "KAFKA": {
+              "type": "KAFKA",
+              "persistent": false
+            }
+          },
+          "defaultDelay": 10,
+          "resourcePaths": [
+            "ux.parcels"
+          ]
+        },
+        {
+          "name": "RECEIVE receiveShipments",
+          "method": "RECEIVE",
+          "bindings": {
+            "KAFKA": {
+              "type": "KAFKA",
+              "persistent": false
+            }
+          },
+          "defaultDelay": 10,
+          "resourcePaths": [
+            "ux.shipments"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "selection": "orders.accepted",
+    "payload": {
+      "orderId": "ux-accepted-20261021",
+      "total": 89.25
+    },
+    "httpStatus": 200,
+    "ack": {
+      "eventId": "e814e6d7-8006-4b4e-85f5-940a03c130e5",
+      "offset": 0,
+      "partition": 0,
+      "topic": "ux.parcels"
+    }
+  },
+  {
+    "selection": "orders.cancelled",
+    "payload": {
+      "orderId": "ux-cancelled-20261021",
+      "reason": "customer-request"
+    },
+    "httpStatus": 200,
+    "ack": {
+      "eventId": "7cc9abbe-9951-413a-aba7-23e81cf78f61",
+      "offset": 1,
+      "partition": 0,
+      "topic": "ux.parcels"
+    }
+  },
+  {
+    "selection": "audit.accepted",
+    "payload": {
+      "orderId": "ux-audit-20261021",
+      "total": 17.5
+    },
+    "httpStatus": 200,
+    "ack": {
+      "eventId": "457df638-b61a-4eeb-8535-121fbdc7f18d",
+      "offset": 2,
+      "partition": 0,
+      "topic": "ux.parcels"
+    }
+  },
+  {
+    "selection": "shipments.dispatched",
+    "payload": {
+      "orderId": "ux-shipment-20261021",
+      "trackingId": "tracking-ux-20261021"
+    },
+    "httpStatus": 200,
+    "ack": {
+      "eventId": "5ef63df6-90ab-45f0-a2b9-b019a92240fd",
+      "offset": 0,
+      "partition": 0,
+      "topic": "ux.shipments"
+    }
+  }
+]

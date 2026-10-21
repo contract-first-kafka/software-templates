@@ -1,0 +1,1 @@
+Verified Microcks service 6ad92ff1f2aecbc8824fd298: all operations/channels and 4 message examples with headers

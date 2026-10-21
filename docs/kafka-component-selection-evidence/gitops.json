@@ -1,0 +1,207 @@
+[
+  {
+    "name": "apicurio",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "demo-domain",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "developer-hub",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "devspaces",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "external-secrets",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "hawtio",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "kafka-ux-check-domain",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "keycloak",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "microcks",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "operator-apicurio",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "operator-developer-hub",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "operator-devspaces",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "operator-external-secrets",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "operator-hawtio",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "operator-keycloak",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "operator-pipelines",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "operator-postgresql",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "operator-quay",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "operator-quay-bridge",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "operator-streams",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "order-fulfillment-dev-system",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "order-fulfillment-event-handler-dev",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "order-fulfillment-event-publisher-dev",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "order-fulfillment-inventory-reservations-api-build",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "order-fulfillment-kafka-events-dev",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "order-fulfillment-order-events-api-build",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "order-fulfillment-order-intake-dev",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "order-fulfillment-order-rest-dev",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "order-fulfillment-order-submission-api-build",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "parcel-dispatch-dev-system",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "parcel-dispatch-kafka-parcel-broker-dev",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "parcel-dispatch-parcel-consumer-dev",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "parcel-dispatch-parcel-handler-dev",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "parcel-dispatch-parcel-lifecycle-api-build",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "parcel-dispatch-parcel-publisher-dev",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "parcel-dispatch-parcel-sender-dev",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "pipelines",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "platform-root",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "quay",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "quay-bridge",
+    "sync": "Synced",
+    "health": "Healthy"
+  },
+  {
+    "name": "tenant-admissions",
+    "sync": "Synced",
+    "health": "Healthy"
+  }
+]
