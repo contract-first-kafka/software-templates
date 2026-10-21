@@ -1,0 +1,7 @@
+{
+  "feature": "c77a47d8401ba437e1a389a7f311385e57461582",
+  "candidate": "d0e29019b1221f9287845c35b447613df684958a",
+  "templateSpecSha256": "45d0767093b5b0efce36248206d166c0f10d0ffcc68fe883e367c03f115f3383",
+  "catalogLocation": "url:https://github.com/contract-first-kafka/software-templates/tree/d0e29019b1221f9287845c35b447613df684958a/templates/component/template.yaml",
+  "matchesFeatureSpec": true
+}

@@ -1,0 +1,7 @@
+{
+  "name": "parcel-broker-dev-connection",
+  "namespace": "parcel-dispatch-dev",
+  "data": {
+    "KAFKA_BOOTSTRAP_SERVERS": "parcel-broker-dev-kafka-bootstrap:9092"
+  }
+}

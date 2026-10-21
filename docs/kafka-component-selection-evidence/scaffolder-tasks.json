@@ -1,0 +1,156 @@
+[
+  {
+    "name": "ux-domain",
+    "id": "bea39b2a-9bcd-4471-bb7b-f59c07152c1a",
+    "status": "completed",
+    "templateRef": "template:default/tenant-domain-golden-path",
+    "templateBaseUrl": "https://github.com/contract-first-kafka/software-templates/tree/v1.4.1/templates/domain/",
+    "links": [
+      {
+        "title": "Domain repository",
+        "url": "https://github.com/contract-first-kafka/kafka-ux-check-domain.git"
+      },
+      {
+        "title": "Domain catalog entity",
+        "icon": "catalog",
+        "entityRef": "domain:default/kafka-ux-check"
+      },
+      {
+        "title": "Platform admission pull request",
+        "url": "https://github.com/contract-first-kafka/platform-components/pull/17"
+      }
+    ]
+  },
+  {
+    "name": "ux-system",
+    "id": "606f147a-18d0-4a1d-aa90-550861b4ef9d",
+    "status": "completed",
+    "templateRef": "template:default/system-golden-path",
+    "templateBaseUrl": "https://github.com/contract-first-kafka/software-templates/tree/v1.4.1/templates/system/",
+    "links": [
+      {
+        "title": "System repository",
+        "url": "https://github.com/contract-first-kafka/parcel-dispatch-system.git"
+      },
+      {
+        "title": "Domain build-environment pull request",
+        "url": "https://github.com/contract-first-kafka/kafka-ux-check-domain/pull/1"
+      },
+      {
+        "title": "System catalog entity",
+        "icon": "catalog",
+        "entityRef": "system:default/parcel-dispatch"
+      }
+    ]
+  },
+  {
+    "name": "ux-api-final",
+    "id": "4e730561-8b95-46dd-a17d-a167ce261b85",
+    "status": "completed",
+    "templateRef": "template:default/asyncapi-specification-golden-path",
+    "templateBaseUrl": "https://github.com/contract-first-kafka/software-templates/tree/v1.4.1/templates/asyncapi/",
+    "links": [
+      {
+        "title": "API repository",
+        "url": "https://github.com/contract-first-kafka/parcel-dispatch-parcel-lifecycle-api.git"
+      },
+      {
+        "title": "System pull request",
+        "url": "https://github.com/contract-first-kafka/parcel-dispatch-system/pull/3"
+      },
+      {
+        "title": "API catalog entity",
+        "icon": "catalog",
+        "entityRef": "api:default/parcel-lifecycle"
+      }
+    ]
+  },
+  {
+    "name": "ux-parcel-broker",
+    "id": "282cb2eb-9443-4de0-8cd5-60ac805c1c10",
+    "status": "completed",
+    "templateRef": "template:default/resource-golden-path",
+    "templateBaseUrl": "https://github.com/contract-first-kafka/software-templates/tree/v1.4.1/templates/resource/",
+    "links": [
+      {
+        "title": "Resource repository",
+        "url": "https://github.com/contract-first-kafka/parcel-dispatch-parcel-broker-resource.git"
+      },
+      {
+        "title": "System pull request",
+        "url": "https://github.com/contract-first-kafka/parcel-dispatch-system/pull/2"
+      },
+      {
+        "title": "Resource catalog entity",
+        "icon": "catalog",
+        "entityRef": "resource:default/parcel-broker"
+      }
+    ]
+  },
+  {
+    "name": "ux-sender",
+    "id": "4e7aeabd-5893-4b72-8de8-21b6407608e9",
+    "status": "completed",
+    "templateRef": "template:default/component-kafka-ux-final",
+    "templateBaseUrl": "https://github.com/contract-first-kafka/software-templates/tree/d0e29019b1221f9287845c35b447613df684958a/templates/component/",
+    "links": [
+      {
+        "title": "Component repository",
+        "url": "https://github.com/contract-first-kafka/parcel-dispatch-parcel-sender-service.git"
+      },
+      {
+        "title": "System pull request",
+        "url": "https://github.com/contract-first-kafka/parcel-dispatch-system/pull/7"
+      },
+      {
+        "title": "Component catalog entity",
+        "icon": "catalog",
+        "entityRef": "component:default/parcel-sender"
+      }
+    ]
+  },
+  {
+    "name": "ux-handler",
+    "id": "d7af14a3-b004-43d2-84dd-69083dc80c46",
+    "status": "completed",
+    "templateRef": "template:default/component-kafka-ux-final",
+    "templateBaseUrl": "https://github.com/contract-first-kafka/software-templates/tree/d0e29019b1221f9287845c35b447613df684958a/templates/component/",
+    "links": [
+      {
+        "title": "Component repository",
+        "url": "https://github.com/contract-first-kafka/parcel-dispatch-parcel-handler-service.git"
+      },
+      {
+        "title": "System pull request",
+        "url": "https://github.com/contract-first-kafka/parcel-dispatch-system/pull/8"
+      },
+      {
+        "title": "Component catalog entity",
+        "icon": "catalog",
+        "entityRef": "component:default/parcel-handler"
+      }
+    ]
+  },
+  {
+    "name": "ux-mixed-final",
+    "id": "f1bb9a28-b03c-4f5b-9427-2ca8bf6d5486",
+    "status": "completed",
+    "templateRef": "template:default/component-kafka-ux-final",
+    "templateBaseUrl": "https://github.com/contract-first-kafka/software-templates/tree/d0e29019b1221f9287845c35b447613df684958a/templates/component/",
+    "links": [
+      {
+        "title": "Component repository",
+        "url": "https://github.com/contract-first-kafka/parcel-dispatch-parcel-mixed-final-service.git"
+      },
+      {
+        "title": "System pull request",
+        "url": "https://github.com/contract-first-kafka/parcel-dispatch-system/pull/9"
+      },
+      {
+        "title": "Component catalog entity",
+        "icon": "catalog",
+        "entityRef": "component:default/parcel-mixed-final"
+      }
+    ]
+  }
+]
