@@ -1,0 +1,18 @@
+{
+  "pipelineRuns": [
+    "eventcatalog-architecture-final",
+    "eventcatalog-architecture-migration",
+    "eventcatalog-architecture-unchanged-a",
+    "eventcatalog-architecture-unchanged-b",
+    "eventcatalog-architecture-bindings",
+    "eventcatalog-architecture-final-unchanged"
+  ],
+  "ownedPVCs": [
+    "pvc-13a55c855e",
+    "pvc-4bec46c2fa",
+    "pvc-6e5b4ee42e",
+    "pvc-f1a95e6e62",
+    "pvc-f40b725462",
+    "pvc-bf13195b1c"
+  ]
+}

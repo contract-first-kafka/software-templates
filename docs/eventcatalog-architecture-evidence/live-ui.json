@@ -1,0 +1,107 @@
+[
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/domains/default--demo/1.0.0",
+    "status": 200,
+    "name": "Demo"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/systems/default--order-fulfillment/1.0.0",
+    "status": 200,
+    "name": "order-fulfillment"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/systems/default--swan/1.0.0",
+    "status": 200,
+    "name": "swan"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/services/default--event-handler/1.0.0",
+    "status": 200,
+    "name": "event-handler"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/services/default--event-publisher/1.0.0",
+    "status": 200,
+    "name": "event-publisher"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/services/default--order-intake/1.0.0",
+    "status": 200,
+    "name": "order-intake"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/services/default--order-rest/1.0.0",
+    "status": 200,
+    "name": "order-rest"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/services/default--ride-scheduler/1.0.0",
+    "status": 200,
+    "name": "ride-scheduler"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/events/default--inventory-reservations--InventoryReserved-43dbb7d410f1fb8f/1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430",
+    "status": 200,
+    "name": "Inventory reserved for an order"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/events/default--order-events--OrderAccepted-6bc151ac3c5791af/1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+    "status": 200,
+    "name": "OrderAccepted"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/events/default--order-events--OrderCancelled-48e3b99c4118c88d/1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+    "status": 200,
+    "name": "OrderCancelled"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/events/default--order-events--ShipmentDispatched-db28e6b745a6393e/1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+    "status": 200,
+    "name": "ShipmentDispatched"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/events/default--rides--SwanBoatRideBooked-9b8b0eb98a62248b/1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b",
+    "status": 200,
+    "name": "SwanBoatRideBooked"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/channels/default--inventory-reservations--topic-b3376d4aa4825f9f/1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430",
+    "status": 200,
+    "name": "demo.inventory.reservations"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/channels/default--order-events--topic-4b65d705e0b90647/1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+    "status": 200,
+    "name": "demo.shipments"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/channels/default--order-events--topic-76d1187d302a6cc1/1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+    "status": 200,
+    "name": "demo.orders"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/channels/default--order-events--topic-c540deb33ab27c72/1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+    "status": 200,
+    "name": "demo.orders.audit"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/channels/default--rides--topic-d69bd249c4b55550/1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b",
+    "status": 200,
+    "name": "demo.rides"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/custom/generated-contracts/default--inventory-reservations-1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430",
+    "status": 200,
+    "name": "Inventory reservation events"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/custom/generated-contracts/default--order-events-1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+    "status": 200,
+    "name": "Order fulfillment events"
+  },
+  {
+    "url": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/custom/generated-contracts/default--rides-1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b",
+    "status": 200,
+    "name": "Swan boat ride events"
+  }
+]

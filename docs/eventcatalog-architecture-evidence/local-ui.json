@@ -1,0 +1,101 @@
+[
+  {
+    "url": "http://127.0.0.1:18185/docs/domains/default--demo/1.0.0",
+    "status": 200,
+    "name": "demo"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/systems/default--orders/1.0.0",
+    "status": 200,
+    "name": "orders"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/services/default--mixed/1.0.0",
+    "status": 200,
+    "name": "mixed"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/services/default--pinned/1.0.0",
+    "status": 200,
+    "name": "pinned"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/services/default--publisher/1.0.0",
+    "status": 200,
+    "name": "publisher"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/services/default--rest/1.0.0",
+    "status": 200,
+    "name": "rest"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/services/default--selective/1.0.0",
+    "status": 200,
+    "name": "selective"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/events/default--order-events--OrderAccepted-6bc151ac3c5791af/1.0.0-git.100.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "status": 200,
+    "name": "OrderAccepted"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/events/default--order-events--OrderAccepted-6bc151ac3c5791af/1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "status": 200,
+    "name": "OrderAccepted"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/events/default--order-events--OrderCancelled-48e3b99c4118c88d/1.0.0-git.100.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "status": 200,
+    "name": "OrderCancelled"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/events/default--order-events--OrderCancelled-48e3b99c4118c88d/1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "status": 200,
+    "name": "OrderCancelled"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/events/default--order-events--ShipmentDispatched-db28e6b745a6393e/1.0.0-git.100.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "status": 200,
+    "name": "ShipmentDispatched"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/events/default--order-events--ShipmentDispatched-db28e6b745a6393e/1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "status": 200,
+    "name": "ShipmentDispatched"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/channels/default--order-events--topic-4b65d705e0b90647/1.0.0-git.100.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "status": 200,
+    "name": "demo.shipments"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/channels/default--order-events--topic-4b65d705e0b90647/1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "status": 200,
+    "name": "demo.shipments"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/channels/default--order-events--topic-76d1187d302a6cc1/1.0.0-git.100.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "status": 200,
+    "name": "demo.orders"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/channels/default--order-events--topic-76d1187d302a6cc1/1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "status": 200,
+    "name": "demo.orders"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/channels/default--order-events--topic-c540deb33ab27c72/1.0.0-git.100.bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "status": 200,
+    "name": "demo.orders.audit"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/channels/default--order-events--topic-c540deb33ab27c72/1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "status": 200,
+    "name": "demo.orders.audit"
+  },
+  {
+    "url": "http://127.0.0.1:18185/docs/custom/generated-contracts/default--order-events-1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "status": 200
+  }
+]

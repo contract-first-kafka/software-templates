@@ -1,0 +1,1238 @@
+{
+  "endpoint": "https://eventcatalog-demo.apps.cluster-ggvsm.dyn.redhatworkshops.io/docs/mcp",
+  "counts": {
+    "domains": 1,
+    "systems": 2,
+    "services": 5,
+    "events": 5,
+    "channels": 5
+  },
+  "assertions": {
+    "componentBindingsMatchSource": 5,
+    "eventChannelsMatchSource": 5,
+    "payloadSchemasMatchSource": 5,
+    "exactSourceRevisions": true
+  },
+  "resources": [
+    {
+      "collection": "domains",
+      "id": "default--demo",
+      "version": "1.0.0",
+      "data": {
+        "systems": [
+          {
+            "id": "default--order-fulfillment",
+            "version": "1.0.0"
+          },
+          {
+            "id": "default--swan",
+            "version": "1.0.0"
+          }
+        ],
+        "id": "default--demo",
+        "name": "Demo",
+        "summary": "Demonstration domain for event-driven business systems and contract-first API development.",
+        "version": "1.0.0",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/demo-domain.git"
+        },
+        "x-cf-idp-entity": "domain:default/demo",
+        "x-source-revision": "95a8c7094d739c6bd04f736bceb70414adeaebb4"
+      },
+      "body": "# Demo\n\nOrder fulfillment architecture and independent event contracts.\n\nThis catalog documents independent API contracts and real CF-IDP Components.\nNative Services represent Components; their declared message selections determine\npublishing and consuming relationships. Contracts exist independently of Services.\n\n## Architecture decisions\n\nContracts remain authoritative in their own Git repositories. Domain and System\nrelationships come from the existing Domain activation and System API references.\n\nAdd business concepts, cross-system processes, and architecture decisions here or\nas additional native EventCatalog documentation pages. Generated resources are\nbuild outputs and do not replace these authored pages.\n\n## Fulfillment flow\n\nReserve inventory before arranging shipment. Order acceptance, stock reservation,\nand shipment dispatch are separate business facts documented by independent\ncontracts. This architecture describes the intended process; it does not claim\nthat producers or consumers have been deployed.\n\n## Agent discovery\n\nThe web UI and native MCP endpoint at `/docs/mcp` expose the same generated\narchitecture and authoritative contract snapshots. Agents can inspect schemas\nand declared relationships without publishing contracts to a second destination."
+    },
+    {
+      "collection": "systems",
+      "id": "default--order-fulfillment",
+      "version": "1.0.0",
+      "data": {
+        "scope": "internal",
+        "services": [
+          {
+            "id": "default--event-handler",
+            "version": "1.0.0"
+          },
+          {
+            "id": "default--event-publisher",
+            "version": "1.0.0"
+          },
+          {
+            "id": "default--order-intake",
+            "version": "1.0.0"
+          },
+          {
+            "id": "default--order-rest",
+            "version": "1.0.0"
+          }
+        ],
+        "id": "default--order-fulfillment",
+        "name": "order-fulfillment",
+        "summary": "Order fulfillment system coordinating order acceptance, inventory reservation, payment, and shipment through events.",
+        "version": "1.0.0",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/order-fulfillment-system.git"
+        },
+        "resourceGroups": [
+          {
+            "title": "Independent event contracts",
+            "items": [
+              {
+                "id": "default--inventory-reservations--InventoryReserved-43dbb7d410f1fb8f",
+                "version": "1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430",
+                "type": "event"
+              },
+              {
+                "id": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+                "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+                "type": "event"
+              },
+              {
+                "id": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+                "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+                "type": "event"
+              },
+              {
+                "id": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+                "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+                "type": "event"
+              }
+            ],
+            "limit": 10,
+            "sidebar": true
+          }
+        ],
+        "x-cf-idp-entity": "system:default/order-fulfillment",
+        "x-source-revision": "c0c5bcfe7cac54bc22cbecf85ac0e6c9e54be06e"
+      },
+      "body": "Order fulfillment system coordinating order acceptance, inventory reservation, payment, and shipment through events.\n\n## Contracts\n- [inventory-reservations (1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430)](/docs/custom/generated-contracts/default--inventory-reservations-1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430)\n- [order-events (1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62)](/docs/custom/generated-contracts/default--order-events-1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62)"
+    },
+    {
+      "collection": "systems",
+      "id": "default--swan",
+      "version": "1.0.0",
+      "data": {
+        "scope": "internal",
+        "services": [
+          {
+            "id": "default--ride-scheduler",
+            "version": "1.0.0"
+          }
+        ],
+        "id": "default--swan",
+        "name": "swan",
+        "summary": "Swan Boat Business",
+        "version": "1.0.0",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/swan-system.git"
+        },
+        "resourceGroups": [
+          {
+            "title": "Independent event contracts",
+            "items": [
+              {
+                "id": "default--rides--SwanBoatRideBooked-9b8b0eb98a62248b",
+                "version": "1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b",
+                "type": "event"
+              }
+            ],
+            "limit": 10,
+            "sidebar": true
+          }
+        ],
+        "x-cf-idp-entity": "system:default/swan",
+        "x-source-revision": "59d44aa0757aa27e3846a2dc593903c751c17b4b"
+      },
+      "body": "Swan Boat Business\n\n## Contracts\n- [rides (1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b)](/docs/custom/generated-contracts/default--rides-1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b)"
+    },
+    {
+      "collection": "services",
+      "id": "default--event-handler",
+      "version": "1.0.0",
+      "data": {
+        "sends": [],
+        "receives": [
+          {
+            "id": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "from": [
+              {
+                "id": "default--order-events--topic-76d1187d302a6cc1",
+                "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+                "delivery_mode": "push"
+              }
+            ]
+          },
+          {
+            "id": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "from": [
+              {
+                "id": "default--order-events--topic-76d1187d302a6cc1",
+                "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+                "delivery_mode": "push"
+              }
+            ]
+          },
+          {
+            "id": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "from": [
+              {
+                "id": "default--order-events--topic-4b65d705e0b90647",
+                "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+                "delivery_mode": "push"
+              }
+            ]
+          }
+        ],
+        "id": "default--event-handler",
+        "name": "event-handler",
+        "summary": "Handles selected order and shipment events after schema and CloudEvents validation.",
+        "version": "1.0.0",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/order-fulfillment-event-handler-service.git"
+        },
+        "x-cf-idp-entity": "component:default/event-handler",
+        "x-source-revision": "4d503826a158208cd78064f6edceca2d50aa1a6d",
+        "x-event-contracts": [
+          {
+            "ref": "api:default/order-events",
+            "registry_group_id": "io.github.contractfirstkafka.demo.orderfulfillment",
+            "registry_artifact_id": "order-events",
+            "alias": "default-order-events",
+            "version": "d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "messages": [
+              {
+                "channel": "orders",
+                "message": "accepted",
+                "role": "consume"
+              },
+              {
+                "channel": "orders",
+                "message": "cancelled",
+                "role": "consume"
+              },
+              {
+                "channel": "shipments",
+                "message": "dispatched",
+                "role": "consume"
+              }
+            ],
+            "content_url": "https://apicurio.apps.cluster-ggvsm.dyn.redhatworkshops.io/apis/registry/v3/groups/io.github.contractfirstkafka.demo.orderfulfillment/artifacts/order-events/versions/d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62/content",
+            "contract": "default--order-events",
+            "sourceSha": "d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62"
+          }
+        ]
+      },
+      "body": "Handles selected order and shipment events after schema and CloudEvents validation.\n\n## Declared event contracts\n- api:default/order-events: selected d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62, source d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62\n\nRelationships are taken from this Component\u2019s Git-authored event-contracts.json, independently of AsyncAPI operation actions."
+    },
+    {
+      "collection": "services",
+      "id": "default--event-publisher",
+      "version": "1.0.0",
+      "data": {
+        "sends": [
+          {
+            "id": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "to": [
+              {
+                "id": "default--order-events--topic-76d1187d302a6cc1",
+                "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+                "delivery_mode": "push"
+              }
+            ]
+          },
+          {
+            "id": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "to": [
+              {
+                "id": "default--order-events--topic-76d1187d302a6cc1",
+                "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+                "delivery_mode": "push"
+              }
+            ]
+          },
+          {
+            "id": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "to": [
+              {
+                "id": "default--order-events--topic-4b65d705e0b90647",
+                "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+                "delivery_mode": "push"
+              }
+            ]
+          }
+        ],
+        "receives": [],
+        "id": "default--event-publisher",
+        "name": "event-publisher",
+        "summary": "Publishes selected order and shipment events using their governed schemas.",
+        "version": "1.0.0",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/order-fulfillment-event-publisher-service.git"
+        },
+        "x-cf-idp-entity": "component:default/event-publisher",
+        "x-source-revision": "1bc814671d09de701b3c0a247d689181a562eb85",
+        "x-event-contracts": [
+          {
+            "ref": "api:default/order-events",
+            "registry_group_id": "io.github.contractfirstkafka.demo.orderfulfillment",
+            "registry_artifact_id": "order-events",
+            "alias": "default-order-events",
+            "version": "d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "messages": [
+              {
+                "channel": "orders",
+                "message": "accepted",
+                "role": "publish"
+              },
+              {
+                "channel": "orders",
+                "message": "cancelled",
+                "role": "publish"
+              },
+              {
+                "channel": "shipments",
+                "message": "dispatched",
+                "role": "publish"
+              }
+            ],
+            "content_url": "https://apicurio.apps.cluster-ggvsm.dyn.redhatworkshops.io/apis/registry/v3/groups/io.github.contractfirstkafka.demo.orderfulfillment/artifacts/order-events/versions/d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62/content",
+            "contract": "default--order-events",
+            "sourceSha": "d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62"
+          }
+        ]
+      },
+      "body": "Publishes selected order and shipment events using their governed schemas.\n\n## Declared event contracts\n- api:default/order-events: selected d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62, source d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62\n\nRelationships are taken from this Component\u2019s Git-authored event-contracts.json, independently of AsyncAPI operation actions."
+    },
+    {
+      "collection": "services",
+      "id": "default--order-intake",
+      "version": "1.0.0",
+      "data": {
+        "sends": [
+          {
+            "id": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "to": [
+              {
+                "id": "default--order-events--topic-76d1187d302a6cc1",
+                "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+                "delivery_mode": "push"
+              }
+            ]
+          }
+        ],
+        "receives": [],
+        "id": "default--order-intake",
+        "name": "order-intake",
+        "summary": "Accepts REST order submissions and publishes OrderAccepted in one runtime.",
+        "version": "1.0.0",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/order-fulfillment-order-intake-service.git"
+        },
+        "x-cf-idp-entity": "component:default/order-intake",
+        "x-source-revision": "4870d58d177d47dce2b69b5ae506fab3d416cdba",
+        "x-event-contracts": [
+          {
+            "ref": "api:default/order-events",
+            "registry_group_id": "io.github.contractfirstkafka.demo.orderfulfillment",
+            "registry_artifact_id": "order-events",
+            "alias": "default-order-events",
+            "version": "d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "messages": [
+              {
+                "channel": "orders",
+                "message": "accepted",
+                "role": "publish",
+                "restOperation": "submitOrder"
+              }
+            ],
+            "content_url": "https://apicurio.apps.cluster-ggvsm.dyn.redhatworkshops.io/apis/registry/v3/groups/io.github.contractfirstkafka.demo.orderfulfillment/artifacts/order-events/versions/d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62/content",
+            "contract": "default--order-events",
+            "sourceSha": "d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62"
+          }
+        ]
+      },
+      "body": "Accepts REST order submissions and publishes OrderAccepted in one runtime.\n\n## Declared event contracts\n- api:default/order-events: selected d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62, source d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62\n\nRelationships are taken from this Component\u2019s Git-authored event-contracts.json, independently of AsyncAPI operation actions."
+    },
+    {
+      "collection": "services",
+      "id": "default--order-rest",
+      "version": "1.0.0",
+      "data": {
+        "sends": [],
+        "receives": [],
+        "id": "default--order-rest",
+        "name": "order-rest",
+        "summary": "OpenAPI-only Component regression verification.",
+        "version": "1.0.0",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/order-fulfillment-order-rest-service.git"
+        },
+        "x-cf-idp-entity": "component:default/order-rest",
+        "x-source-revision": "3960fa85b30755a7ac486d16afdd6a9b9c46e733",
+        "x-event-contracts": []
+      },
+      "body": "OpenAPI-only Component regression verification.\n\n## Declared event contracts\nNo Kafka contracts declared.\n\nRelationships are taken from this Component\u2019s Git-authored event-contracts.json, independently of AsyncAPI operation actions."
+    },
+    {
+      "collection": "services",
+      "id": "default--ride-scheduler",
+      "version": "1.0.0",
+      "data": {
+        "sends": [
+          {
+            "id": "default--rides--SwanBoatRideBooked-9b8b0eb98a62248b",
+            "version": "1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b",
+            "to": [
+              {
+                "id": "default--rides--topic-d69bd249c4b55550",
+                "version": "1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b",
+                "delivery_mode": "push"
+              }
+            ]
+          }
+        ],
+        "receives": [],
+        "id": "default--ride-scheduler",
+        "name": "ride-scheduler",
+        "summary": "Swan Boat Ride Scheduler",
+        "version": "1.0.0",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/swan-ride-scheduler-service.git"
+        },
+        "x-cf-idp-entity": "component:default/ride-scheduler",
+        "x-source-revision": "8651c3a4a31cd2dbd6664a0d0afa9af5e1ae4579",
+        "x-event-contracts": [
+          {
+            "ref": "api:default/rides",
+            "registry_group_id": "io.github.contractfirstkafka.demo.swan",
+            "registry_artifact_id": "rides",
+            "alias": "default-rides",
+            "version": "latest",
+            "content_url": "https://apicurio.apps.cluster-ggvsm.dyn.redhatworkshops.io/apis/registry/v3/groups/io.github.contractfirstkafka.demo.swan/artifacts/rides/versions/branch%3Dlatest/content",
+            "messages": [
+              {
+                "channel": "rides",
+                "message": "booked",
+                "role": "publish"
+              }
+            ],
+            "contract": "default--rides",
+            "sourceSha": "b52f30c8745028e6299f84261f61297b7900220b"
+          }
+        ]
+      },
+      "body": "Swan Boat Ride Scheduler\n\n## Declared event contracts\n- api:default/rides: selected latest, source b52f30c8745028e6299f84261f61297b7900220b\n\nRelationships are taken from this Component\u2019s Git-authored event-contracts.json, independently of AsyncAPI operation actions."
+    },
+    {
+      "collection": "events",
+      "id": "default--inventory-reservations--InventoryReserved-43dbb7d410f1fb8f",
+      "version": "1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430",
+      "data": {
+        "channels": [
+          {
+            "id": "default--inventory-reservations--topic-b3376d4aa4825f9f",
+            "version": "1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430"
+          }
+        ],
+        "id": "default--inventory-reservations--InventoryReserved-43dbb7d410f1fb8f",
+        "name": "Inventory reserved for an order",
+        "summary": "Inventory reservation confirmed for fulfillment planning.",
+        "version": "1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "schemaPath": "schema.json",
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/order-fulfillment-inventory-reservations-api.git"
+        },
+        "x-contract-ref": "api:default/inventory-reservations",
+        "x-contract-version": "1.0.0",
+        "x-source-revision": "33e7919bcf5a4b08c6a75206d793930a07173430",
+        "x-schema-format": "application/schema+json;version=draft-07"
+      },
+      "body": "Inventory reservation confirmed for fulfillment planning.\n\nContract: [Inventory reservation events](/docs/custom/generated-contracts/default--inventory-reservations-1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430) \u00b7 [Authoritative source](https://github.com/contract-first-kafka/order-fulfillment-inventory-reservations-api/blob/33e7919bcf5a4b08c6a75206d793930a07173430/specification.yaml) \u00b7 [Original AsyncAPI](/contracts/default--inventory-reservations/1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430/specification.yaml)\n\n## Headers\n\n```json\n{\n  \"$ref\": \"#/$defs/ref_e048c9b53902812b\",\n  \"$defs\": {\n    \"ref_e048c9b53902812b\": {\n      \"type\": \"object\",\n      \"required\": [\n        \"ce_specversion\",\n        \"ce_id\",\n        \"ce_source\",\n        \"ce_type\"\n      ],\n      \"properties\": {\n        \"ce_specversion\": {\n          \"type\": \"string\",\n          \"const\": \"1.0\"\n        },\n        \"ce_id\": {\n          \"type\": \"string\"\n        },\n        \"ce_source\": {\n          \"type\": \"string\"\n        },\n        \"ce_type\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  }\n}\n```\n\n## Examples\n\n```json\n[\n  {\n    \"name\": \"ReservedStock\",\n    \"headers\": {\n      \"ce_specversion\": \"1.0\",\n      \"ce_id\": \"reservation-001\",\n      \"ce_source\": \"/inventory\",\n      \"ce_type\": \"demo.inventory.reserved\"\n    },\n    \"payload\": {\n      \"orderId\": \"order-1001\",\n      \"sku\": \"widget-blue\",\n      \"quantity\": 2,\n      \"warehouseId\": \"chicago-01\"\n    }\n  }\n]\n```"
+    },
+    {
+      "collection": "events",
+      "id": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+      "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+      "data": {
+        "channels": [
+          {
+            "id": "default--order-events--topic-76d1187d302a6cc1",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62"
+          },
+          {
+            "id": "default--order-events--topic-c540deb33ab27c72",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62"
+          }
+        ],
+        "id": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+        "name": "OrderAccepted",
+        "summary": "",
+        "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "schemaPath": "schema.avsc",
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/order-fulfillment-order-events-api.git"
+        },
+        "x-contract-ref": "api:default/order-events",
+        "x-contract-version": "1.0.0",
+        "x-source-revision": "d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+        "x-schema-format": "application/vnd.apache.avro;version=1.9.0"
+      },
+      "body": "Contract: [Order fulfillment events](/docs/custom/generated-contracts/default--order-events-1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62) \u00b7 [Authoritative source](https://github.com/contract-first-kafka/order-fulfillment-order-events-api/blob/d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62/specification.yaml) \u00b7 [Original AsyncAPI](/contracts/default--order-events/1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62/specification.yaml)\n\n## Headers\n\n```json\n{\n  \"$ref\": \"#/$defs/ref_e048c9b53902812b\",\n  \"$defs\": {\n    \"ref_e048c9b53902812b\": {\n      \"type\": \"object\",\n      \"required\": [\n        \"ce_specversion\",\n        \"ce_id\",\n        \"ce_source\",\n        \"ce_type\"\n      ],\n      \"properties\": {\n        \"ce_specversion\": {\n          \"type\": \"string\",\n          \"const\": \"1.0\"\n        },\n        \"ce_id\": {\n          \"type\": \"string\"\n        },\n        \"ce_source\": {\n          \"type\": \"string\"\n        },\n        \"ce_type\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  }\n}\n```\n\n## Examples\n\n```json\n[\n  {\n    \"name\": \"accepted-order\",\n    \"headers\": {\n      \"ce_specversion\": \"1.0\",\n      \"ce_id\": \"event-001\",\n      \"ce_source\": \"/orders\",\n      \"ce_type\": \"demo.order.accepted\"\n    },\n    \"payload\": {\n      \"orderId\": \"order-001\",\n      \"total\": 49.95\n    }\n  }\n]\n```"
+    },
+    {
+      "collection": "events",
+      "id": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+      "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+      "data": {
+        "channels": [
+          {
+            "id": "default--order-events--topic-76d1187d302a6cc1",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62"
+          }
+        ],
+        "id": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+        "name": "OrderCancelled",
+        "summary": "",
+        "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "schemaPath": "schema.avsc",
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/order-fulfillment-order-events-api.git"
+        },
+        "x-contract-ref": "api:default/order-events",
+        "x-contract-version": "1.0.0",
+        "x-source-revision": "d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+        "x-schema-format": "application/vnd.apache.avro;version=1.9.0"
+      },
+      "body": "Contract: [Order fulfillment events](/docs/custom/generated-contracts/default--order-events-1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62) \u00b7 [Authoritative source](https://github.com/contract-first-kafka/order-fulfillment-order-events-api/blob/d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62/specification.yaml) \u00b7 [Original AsyncAPI](/contracts/default--order-events/1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62/specification.yaml)\n\n## Headers\n\n```json\n{\n  \"$ref\": \"#/$defs/ref_e048c9b53902812b\",\n  \"$defs\": {\n    \"ref_e048c9b53902812b\": {\n      \"type\": \"object\",\n      \"required\": [\n        \"ce_specversion\",\n        \"ce_id\",\n        \"ce_source\",\n        \"ce_type\"\n      ],\n      \"properties\": {\n        \"ce_specversion\": {\n          \"type\": \"string\",\n          \"const\": \"1.0\"\n        },\n        \"ce_id\": {\n          \"type\": \"string\"\n        },\n        \"ce_source\": {\n          \"type\": \"string\"\n        },\n        \"ce_type\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  }\n}\n```\n\n## Examples\n\n```json\n[\n  {\n    \"name\": \"cancelled-order\",\n    \"headers\": {\n      \"ce_specversion\": \"1.0\",\n      \"ce_id\": \"event-002\",\n      \"ce_source\": \"/orders\",\n      \"ce_type\": \"demo.order.cancelled\"\n    },\n    \"payload\": {\n      \"orderId\": \"order-002\",\n      \"reason\": \"customer-request\"\n    }\n  }\n]\n```"
+    },
+    {
+      "collection": "events",
+      "id": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+      "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+      "data": {
+        "channels": [
+          {
+            "id": "default--order-events--topic-4b65d705e0b90647",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62"
+          }
+        ],
+        "id": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+        "name": "ShipmentDispatched",
+        "summary": "",
+        "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "schemaPath": "schema.json",
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/order-fulfillment-order-events-api.git"
+        },
+        "x-contract-ref": "api:default/order-events",
+        "x-contract-version": "1.0.0",
+        "x-source-revision": "d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+        "x-schema-format": "application/schema+json;version=draft-07"
+      },
+      "body": "Contract: [Order fulfillment events](/docs/custom/generated-contracts/default--order-events-1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62) \u00b7 [Authoritative source](https://github.com/contract-first-kafka/order-fulfillment-order-events-api/blob/d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62/specification.yaml) \u00b7 [Original AsyncAPI](/contracts/default--order-events/1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62/specification.yaml)\n\n## Headers\n\n```json\n{\n  \"$ref\": \"#/$defs/ref_e048c9b53902812b\",\n  \"$defs\": {\n    \"ref_e048c9b53902812b\": {\n      \"type\": \"object\",\n      \"required\": [\n        \"ce_specversion\",\n        \"ce_id\",\n        \"ce_source\",\n        \"ce_type\"\n      ],\n      \"properties\": {\n        \"ce_specversion\": {\n          \"type\": \"string\",\n          \"const\": \"1.0\"\n        },\n        \"ce_id\": {\n          \"type\": \"string\"\n        },\n        \"ce_source\": {\n          \"type\": \"string\"\n        },\n        \"ce_type\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  }\n}\n```\n\n## Examples\n\n```json\n[\n  {\n    \"name\": \"dispatched-shipment\",\n    \"headers\": {\n      \"ce_specversion\": \"1.0\",\n      \"ce_id\": \"event-003\",\n      \"ce_source\": \"/shipments\",\n      \"ce_type\": \"demo.shipment.dispatched\"\n    },\n    \"payload\": {\n      \"orderId\": \"order-001\",\n      \"trackingId\": \"tracking-001\"\n    }\n  }\n]\n```"
+    },
+    {
+      "collection": "events",
+      "id": "default--rides--SwanBoatRideBooked-9b8b0eb98a62248b",
+      "version": "1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b",
+      "data": {
+        "channels": [
+          {
+            "id": "default--rides--topic-d69bd249c4b55550",
+            "version": "1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b"
+          }
+        ],
+        "id": "default--rides--SwanBoatRideBooked-9b8b0eb98a62248b",
+        "name": "SwanBoatRideBooked",
+        "summary": "",
+        "version": "1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "schemaPath": "schema.json",
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/swan-rides-api.git"
+        },
+        "x-contract-ref": "api:default/rides",
+        "x-contract-version": "1.0.0",
+        "x-source-revision": "b52f30c8745028e6299f84261f61297b7900220b",
+        "x-schema-format": "application/schema+json;version=draft-07"
+      },
+      "body": "Contract: [Swan boat ride events](/docs/custom/generated-contracts/default--rides-1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b) \u00b7 [Authoritative source](https://github.com/contract-first-kafka/swan-rides-api/blob/b52f30c8745028e6299f84261f61297b7900220b/specification.yaml) \u00b7 [Original AsyncAPI](/contracts/default--rides/1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b/specification.yaml)\n\n## Headers\n\n```json\n{\n  \"$ref\": \"#/$defs/ref_e048c9b53902812b\",\n  \"$defs\": {\n    \"ref_e048c9b53902812b\": {\n      \"type\": \"object\",\n      \"required\": [\n        \"ce_specversion\",\n        \"ce_id\",\n        \"ce_source\",\n        \"ce_type\"\n      ],\n      \"properties\": {\n        \"ce_specversion\": {\n          \"type\": \"string\",\n          \"const\": \"1.0\"\n        },\n        \"ce_id\": {\n          \"type\": \"string\"\n        },\n        \"ce_source\": {\n          \"type\": \"string\"\n        },\n        \"ce_type\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  }\n}\n```\n\n## Examples\n\n```json\n[\n  {\n    \"name\": \"booked-ride\",\n    \"headers\": {\n      \"ce_specversion\": \"1.0\",\n      \"ce_id\": \"event-001\",\n      \"ce_source\": \"/rides\",\n      \"ce_type\": \"demo.ride.booked\"\n    },\n    \"payload\": {\n      \"bookingId\": \"booking-001\",\n      \"customerName\": \"Alice Smith\",\n      \"passengerCount\": 2,\n      \"scheduledTime\": \"2026-10-22T10:00:00Z\"\n    }\n  }\n]\n```"
+    },
+    {
+      "collection": "channels",
+      "id": "default--inventory-reservations--topic-b3376d4aa4825f9f",
+      "version": "1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430",
+      "data": {
+        "address": "demo.inventory.reservations",
+        "protocols": [
+          "kafka"
+        ],
+        "id": "default--inventory-reservations--topic-b3376d4aa4825f9f",
+        "name": "demo.inventory.reservations",
+        "version": "1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/order-fulfillment-inventory-reservations-api.git"
+        },
+        "x-channel-keys": [
+          "reservations"
+        ]
+      },
+      "body": "Kafka topic declared by [Inventory reservation events](/docs/custom/generated-contracts/default--inventory-reservations-1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430)."
+    },
+    {
+      "collection": "channels",
+      "id": "default--order-events--topic-4b65d705e0b90647",
+      "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+      "data": {
+        "address": "demo.shipments",
+        "protocols": [
+          "kafka"
+        ],
+        "id": "default--order-events--topic-4b65d705e0b90647",
+        "name": "demo.shipments",
+        "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/order-fulfillment-order-events-api.git"
+        },
+        "x-channel-keys": [
+          "shipments"
+        ]
+      },
+      "body": "Kafka topic declared by [Order fulfillment events](/docs/custom/generated-contracts/default--order-events-1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62)."
+    },
+    {
+      "collection": "channels",
+      "id": "default--order-events--topic-76d1187d302a6cc1",
+      "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+      "data": {
+        "address": "demo.orders",
+        "protocols": [
+          "kafka"
+        ],
+        "id": "default--order-events--topic-76d1187d302a6cc1",
+        "name": "demo.orders",
+        "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/order-fulfillment-order-events-api.git"
+        },
+        "x-channel-keys": [
+          "orders"
+        ]
+      },
+      "body": "Kafka topic declared by [Order fulfillment events](/docs/custom/generated-contracts/default--order-events-1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62)."
+    },
+    {
+      "collection": "channels",
+      "id": "default--order-events--topic-c540deb33ab27c72",
+      "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+      "data": {
+        "address": "demo.orders.audit",
+        "protocols": [
+          "kafka"
+        ],
+        "id": "default--order-events--topic-c540deb33ab27c72",
+        "name": "demo.orders.audit",
+        "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/order-fulfillment-order-events-api.git"
+        },
+        "x-channel-keys": [
+          "audit"
+        ]
+      },
+      "body": "Kafka topic declared by [Order fulfillment events](/docs/custom/generated-contracts/default--order-events-1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62)."
+    },
+    {
+      "collection": "channels",
+      "id": "default--rides--topic-d69bd249c4b55550",
+      "version": "1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b",
+      "data": {
+        "address": "demo.rides",
+        "protocols": [
+          "kafka"
+        ],
+        "id": "default--rides--topic-d69bd249c4b55550",
+        "name": "demo.rides",
+        "version": "1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b",
+        "owners": [
+          {
+            "id": "domain-maintainers"
+          }
+        ],
+        "repository": {
+          "url": "https://github.com/contract-first-kafka/swan-rides-api.git"
+        },
+        "x-channel-keys": [
+          "rides"
+        ]
+      },
+      "body": "Kafka topic declared by [Swan boat ride events](/docs/custom/generated-contracts/default--rides-1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b)."
+    }
+  ],
+  "schemas": [
+    {
+      "arguments": {
+        "resourceCollection": "events",
+        "resourceId": "default--inventory-reservations--InventoryReserved-43dbb7d410f1fb8f",
+        "resourceVersion": "1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430"
+      },
+      "schemas": [
+        {
+          "id": "schema:events:default--inventory-reservations--InventoryReserved-43dbb7d410f1fb8f:1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430:schema.json",
+          "format": "jsonschema",
+          "sha256": "8fc3a32bd9d5efbc94cc401c2cefa0163abefe9ffedcf89fcd9c9e3b1e4a17b5"
+        }
+      ]
+    },
+    {
+      "arguments": {
+        "resourceCollection": "events",
+        "resourceId": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+        "resourceVersion": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62"
+      },
+      "schemas": [
+        {
+          "id": "schema:events:default--order-events--OrderAccepted-6bc151ac3c5791af:1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62:schema.avsc",
+          "format": "avro",
+          "sha256": "ecfff13c5840310da15a7700db36f751c5993fe53e8bfa30605496cba71532ed"
+        }
+      ]
+    },
+    {
+      "arguments": {
+        "resourceCollection": "events",
+        "resourceId": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+        "resourceVersion": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62"
+      },
+      "schemas": [
+        {
+          "id": "schema:events:default--order-events--OrderCancelled-48e3b99c4118c88d:1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62:schema.avsc",
+          "format": "avro",
+          "sha256": "85d8b848dff622a84a4dcea2aad14342ee2b3fde460482185d7138363cecf76b"
+        }
+      ]
+    },
+    {
+      "arguments": {
+        "resourceCollection": "events",
+        "resourceId": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+        "resourceVersion": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62"
+      },
+      "schemas": [
+        {
+          "id": "schema:events:default--order-events--ShipmentDispatched-db28e6b745a6393e:1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62:schema.json",
+          "format": "jsonschema",
+          "sha256": "c306afb47c9b302855647f622f2e6e4438c16be3e712d0f7a81f003fbfdf693e"
+        }
+      ]
+    },
+    {
+      "arguments": {
+        "resourceCollection": "events",
+        "resourceId": "default--rides--SwanBoatRideBooked-9b8b0eb98a62248b",
+        "resourceVersion": "1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b"
+      },
+      "schemas": [
+        {
+          "id": "schema:events:default--rides--SwanBoatRideBooked-9b8b0eb98a62248b:1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b:schema.json",
+          "format": "jsonschema",
+          "sha256": "44581df5099480b9747434c99279da680f9e117bc40c30e7686f9297b39f1e5d"
+        }
+      ]
+    }
+  ],
+  "lookups": [
+    {
+      "name": "getMessagesProducedOrConsumedByResource",
+      "args": {
+        "resourceCollection": "services",
+        "resourceId": "default--event-handler"
+      },
+      "data": {
+        "resource": {
+          "id": "default--event-handler",
+          "version": "1.0.0",
+          "name": "event-handler",
+          "collection": "services"
+        },
+        "sends": [],
+        "receives": [
+          {
+            "id": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "name": "OrderAccepted",
+            "summary": "",
+            "collection": "events"
+          },
+          {
+            "id": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "name": "OrderCancelled",
+            "summary": "",
+            "collection": "events"
+          },
+          {
+            "id": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "name": "ShipmentDispatched",
+            "summary": "",
+            "collection": "events"
+          }
+        ]
+      }
+    },
+    {
+      "name": "getMessagesProducedOrConsumedByResource",
+      "args": {
+        "resourceCollection": "services",
+        "resourceId": "default--event-publisher"
+      },
+      "data": {
+        "resource": {
+          "id": "default--event-publisher",
+          "version": "1.0.0",
+          "name": "event-publisher",
+          "collection": "services"
+        },
+        "sends": [
+          {
+            "id": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "name": "OrderAccepted",
+            "summary": "",
+            "collection": "events"
+          },
+          {
+            "id": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "name": "OrderCancelled",
+            "summary": "",
+            "collection": "events"
+          },
+          {
+            "id": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "name": "ShipmentDispatched",
+            "summary": "",
+            "collection": "events"
+          }
+        ],
+        "receives": []
+      }
+    },
+    {
+      "name": "getMessagesProducedOrConsumedByResource",
+      "args": {
+        "resourceCollection": "services",
+        "resourceId": "default--order-intake"
+      },
+      "data": {
+        "resource": {
+          "id": "default--order-intake",
+          "version": "1.0.0",
+          "name": "order-intake",
+          "collection": "services"
+        },
+        "sends": [
+          {
+            "id": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+            "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "name": "OrderAccepted",
+            "summary": "",
+            "collection": "events"
+          }
+        ],
+        "receives": []
+      }
+    },
+    {
+      "name": "getMessagesProducedOrConsumedByResource",
+      "args": {
+        "resourceCollection": "services",
+        "resourceId": "default--order-rest"
+      },
+      "data": {
+        "resource": {
+          "id": "default--order-rest",
+          "version": "1.0.0",
+          "name": "order-rest",
+          "collection": "services"
+        },
+        "sends": [],
+        "receives": []
+      }
+    },
+    {
+      "name": "getMessagesProducedOrConsumedByResource",
+      "args": {
+        "resourceCollection": "services",
+        "resourceId": "default--ride-scheduler"
+      },
+      "data": {
+        "resource": {
+          "id": "default--ride-scheduler",
+          "version": "1.0.0",
+          "name": "ride-scheduler",
+          "collection": "services"
+        },
+        "sends": [
+          {
+            "id": "default--rides--SwanBoatRideBooked-9b8b0eb98a62248b",
+            "version": "1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b",
+            "name": "SwanBoatRideBooked",
+            "summary": "",
+            "collection": "events"
+          }
+        ],
+        "receives": []
+      }
+    },
+    {
+      "name": "getProducersOfMessage",
+      "args": {
+        "messageId": "default--inventory-reservations--InventoryReserved-43dbb7d410f1fb8f",
+        "messageVersion": "1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "default--inventory-reservations--InventoryReserved-43dbb7d410f1fb8f",
+          "version": "1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430",
+          "collection": "events"
+        },
+        "producers": [],
+        "count": 0
+      }
+    },
+    {
+      "name": "getConsumersOfMessage",
+      "args": {
+        "messageId": "default--inventory-reservations--InventoryReserved-43dbb7d410f1fb8f",
+        "messageVersion": "1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "default--inventory-reservations--InventoryReserved-43dbb7d410f1fb8f",
+          "version": "1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430",
+          "collection": "events"
+        },
+        "consumers": [],
+        "count": 0
+      }
+    },
+    {
+      "name": "getProducersOfMessage",
+      "args": {
+        "messageId": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+        "messageVersion": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+          "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+          "collection": "events"
+        },
+        "producers": [
+          {
+            "id": "default--event-publisher",
+            "version": "1.0.0",
+            "name": "event-publisher",
+            "collection": "services"
+          },
+          {
+            "id": "default--order-intake",
+            "version": "1.0.0",
+            "name": "order-intake",
+            "collection": "services"
+          }
+        ],
+        "count": 2
+      }
+    },
+    {
+      "name": "getConsumersOfMessage",
+      "args": {
+        "messageId": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+        "messageVersion": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+          "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+          "collection": "events"
+        },
+        "consumers": [
+          {
+            "id": "default--event-handler",
+            "version": "1.0.0",
+            "name": "event-handler",
+            "collection": "services"
+          }
+        ],
+        "count": 1
+      }
+    },
+    {
+      "name": "getProducersOfMessage",
+      "args": {
+        "messageId": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+        "messageVersion": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+          "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+          "collection": "events"
+        },
+        "producers": [
+          {
+            "id": "default--event-publisher",
+            "version": "1.0.0",
+            "name": "event-publisher",
+            "collection": "services"
+          }
+        ],
+        "count": 1
+      }
+    },
+    {
+      "name": "getConsumersOfMessage",
+      "args": {
+        "messageId": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+        "messageVersion": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+          "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+          "collection": "events"
+        },
+        "consumers": [
+          {
+            "id": "default--event-handler",
+            "version": "1.0.0",
+            "name": "event-handler",
+            "collection": "services"
+          }
+        ],
+        "count": 1
+      }
+    },
+    {
+      "name": "getProducersOfMessage",
+      "args": {
+        "messageId": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+        "messageVersion": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+          "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+          "collection": "events"
+        },
+        "producers": [
+          {
+            "id": "default--event-publisher",
+            "version": "1.0.0",
+            "name": "event-publisher",
+            "collection": "services"
+          }
+        ],
+        "count": 1
+      }
+    },
+    {
+      "name": "getConsumersOfMessage",
+      "args": {
+        "messageId": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+        "messageVersion": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+          "version": "1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+          "collection": "events"
+        },
+        "consumers": [
+          {
+            "id": "default--event-handler",
+            "version": "1.0.0",
+            "name": "event-handler",
+            "collection": "services"
+          }
+        ],
+        "count": 1
+      }
+    },
+    {
+      "name": "getProducersOfMessage",
+      "args": {
+        "messageId": "default--rides--SwanBoatRideBooked-9b8b0eb98a62248b",
+        "messageVersion": "1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "default--rides--SwanBoatRideBooked-9b8b0eb98a62248b",
+          "version": "1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b",
+          "collection": "events"
+        },
+        "producers": [
+          {
+            "id": "default--ride-scheduler",
+            "version": "1.0.0",
+            "name": "ride-scheduler",
+            "collection": "services"
+          }
+        ],
+        "count": 1
+      }
+    },
+    {
+      "name": "getConsumersOfMessage",
+      "args": {
+        "messageId": "default--rides--SwanBoatRideBooked-9b8b0eb98a62248b",
+        "messageVersion": "1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "default--rides--SwanBoatRideBooked-9b8b0eb98a62248b",
+          "version": "1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b",
+          "collection": "events"
+        },
+        "consumers": [],
+        "count": 0
+      }
+    },
+    {
+      "name": "getCustomDocs",
+      "args": {},
+      "data": {
+        "docs": [
+          {
+            "id": "docs",
+            "title": "Domain architecture",
+            "summary": "Business context and architecture decisions owned by this Domain."
+          },
+          {
+            "id": "docs/generated-contracts/default--inventory-reservations-1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430",
+            "title": "Inventory reservation events",
+            "summary": "Inventory reservations made for orders awaiting fulfillment.",
+            "slug": "docs/generated-contracts/default--inventory-reservations-1.0.0-git.1792474922.33e7919bcf5a4b08c6a75206d793930a07173430"
+          },
+          {
+            "id": "docs/generated-contracts/default--order-events-1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62",
+            "title": "Order fulfillment events",
+            "summary": "Order lifecycle and shipment events with CloudEvents binary headers.",
+            "slug": "docs/generated-contracts/default--order-events-1.0.0-git.1792471410.d7f07e4de1ced076db9f3bbfb1a43e6ce0562a62"
+          },
+          {
+            "id": "docs/generated-contracts/default--rides-1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b",
+            "title": "Swan boat ride events",
+            "summary": "Events related to swan boat ride bookings and operations with CloudEvents binary headers.",
+            "slug": "docs/generated-contracts/default--rides-1.0.0-git.1792699241.b52f30c8745028e6299f84261f61297b7900220b"
+          }
+        ],
+        "totalCount": 4
+      }
+    }
+  ]
+}

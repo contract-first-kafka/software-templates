@@ -1,0 +1,50 @@
+{
+  "deployment": "demo-catalog/eventcatalog",
+  "image": "registry-quay-quay.apps.cluster-ggvsm.dyn.redhatworkshops.io/openshift_demo-catalog/eventcatalog@sha256:8490b804f5268b8c6f414627c7821074266bd0529a91b4ad41c54a3f835cc86b",
+  "readyReplicas": 1,
+  "core": "5.4.1",
+  "EVENTCATALOG_DISABLE_CHANNEL_MIGRATION": "true",
+  "argoApplications": 45,
+  "allSyncedHealthy": true,
+  "developerHubTemplate": "v1.6.2",
+  "developerHubTemplateMatchesRelease": true,
+  "protection": {
+    "branch": "demo-domain/main",
+    "appBypassRemoved": true,
+    "adminEnforcement": true,
+    "requiredPullRequests": true,
+    "domainHookRestored": true
+  },
+  "componentRefreshHooks": [
+    {
+      "repo": "order-fulfillment-event-handler-service",
+      "id": 701844767,
+      "active": true,
+      "url": "https://el-eventcatalog-demo-catalog.apps.cluster-ggvsm.dyn.redhatworkshops.io"
+    },
+    {
+      "repo": "order-fulfillment-event-publisher-service",
+      "id": 701844769,
+      "active": true,
+      "url": "https://el-eventcatalog-demo-catalog.apps.cluster-ggvsm.dyn.redhatworkshops.io"
+    },
+    {
+      "repo": "order-fulfillment-order-intake-service",
+      "id": 701844771,
+      "active": true,
+      "url": "https://el-eventcatalog-demo-catalog.apps.cluster-ggvsm.dyn.redhatworkshops.io"
+    },
+    {
+      "repo": "order-fulfillment-order-rest-service",
+      "id": 701844773,
+      "active": true,
+      "url": "https://el-eventcatalog-demo-catalog.apps.cluster-ggvsm.dyn.redhatworkshops.io"
+    },
+    {
+      "repo": "swan-ride-scheduler-service",
+      "id": 701844776,
+      "active": true,
+      "url": "https://el-eventcatalog-demo-catalog.apps.cluster-ggvsm.dyn.redhatworkshops.io"
+    }
+  ]
+}

@@ -1,0 +1,305 @@
+{
+  "server": {
+    "name": "EventCatalog MCP Server",
+    "version": "1.3.0"
+  },
+  "calls": [
+    {
+      "tool": "getResources",
+      "collection": "domains",
+      "resources": [
+        {
+          "id": "default--demo",
+          "version": "1.0.0",
+          "name": "demo"
+        }
+      ]
+    },
+    {
+      "tool": "getResources",
+      "collection": "systems",
+      "resources": [
+        {
+          "id": "default--orders",
+          "version": "1.0.0",
+          "name": "orders"
+        }
+      ]
+    },
+    {
+      "tool": "getResources",
+      "collection": "services",
+      "resources": []
+    },
+    {
+      "tool": "getResources",
+      "collection": "events",
+      "resources": [
+        {
+          "id": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+          "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "name": "OrderAccepted"
+        },
+        {
+          "id": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+          "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "name": "OrderCancelled"
+        },
+        {
+          "id": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+          "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "name": "ShipmentDispatched"
+        }
+      ]
+    },
+    {
+      "tool": "getResources",
+      "collection": "channels",
+      "resources": [
+        {
+          "id": "default--order-events--topic-4b65d705e0b90647",
+          "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "name": "demo.shipments"
+        },
+        {
+          "id": "default--order-events--topic-76d1187d302a6cc1",
+          "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "name": "demo.orders"
+        },
+        {
+          "id": "default--order-events--topic-c540deb33ab27c72",
+          "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "name": "demo.orders.audit"
+        }
+      ]
+    },
+    {
+      "tool": "getResource",
+      "args": {
+        "collection": "domains",
+        "id": "default--demo",
+        "version": "1.0.0"
+      },
+      "data": {
+        "id": "default--demo",
+        "name": "demo",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "tool": "getResource",
+      "args": {
+        "collection": "systems",
+        "id": "default--orders",
+        "version": "1.0.0"
+      },
+      "data": {
+        "id": "default--orders",
+        "name": "orders",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "tool": "getResource",
+      "args": {
+        "collection": "events",
+        "id": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+        "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "data": {
+        "channels": [
+          {
+            "id": "default--order-events--topic-76d1187d302a6cc1",
+            "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          },
+          {
+            "id": "default--order-events--topic-c540deb33ab27c72",
+            "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ],
+        "id": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+        "name": "OrderAccepted",
+        "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "tool": "getResource",
+      "args": {
+        "collection": "events",
+        "id": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+        "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "data": {
+        "channels": [
+          {
+            "id": "default--order-events--topic-76d1187d302a6cc1",
+            "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ],
+        "id": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+        "name": "OrderCancelled",
+        "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "tool": "getResource",
+      "args": {
+        "collection": "events",
+        "id": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+        "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "data": {
+        "channels": [
+          {
+            "id": "default--order-events--topic-4b65d705e0b90647",
+            "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          }
+        ],
+        "id": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+        "name": "ShipmentDispatched",
+        "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "tool": "getResource",
+      "args": {
+        "collection": "channels",
+        "id": "default--order-events--topic-4b65d705e0b90647",
+        "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "data": {
+        "id": "default--order-events--topic-4b65d705e0b90647",
+        "name": "demo.shipments",
+        "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "tool": "getResource",
+      "args": {
+        "collection": "channels",
+        "id": "default--order-events--topic-76d1187d302a6cc1",
+        "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "data": {
+        "id": "default--order-events--topic-76d1187d302a6cc1",
+        "name": "demo.orders",
+        "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "tool": "getResource",
+      "args": {
+        "collection": "channels",
+        "id": "default--order-events--topic-c540deb33ab27c72",
+        "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "data": {
+        "id": "default--order-events--topic-c540deb33ab27c72",
+        "name": "demo.orders.audit",
+        "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      }
+    },
+    {
+      "name": "getProducersOfMessage",
+      "args": {
+        "messageId": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+        "messageVersion": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+          "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "collection": "events"
+        },
+        "producers": [],
+        "count": 0
+      }
+    },
+    {
+      "name": "getConsumersOfMessage",
+      "args": {
+        "messageId": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+        "messageVersion": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "default--order-events--OrderAccepted-6bc151ac3c5791af",
+          "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "collection": "events"
+        },
+        "consumers": [],
+        "count": 0
+      }
+    },
+    {
+      "name": "getProducersOfMessage",
+      "args": {
+        "messageId": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+        "messageVersion": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+          "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "collection": "events"
+        },
+        "producers": [],
+        "count": 0
+      }
+    },
+    {
+      "name": "getConsumersOfMessage",
+      "args": {
+        "messageId": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+        "messageVersion": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "default--order-events--OrderCancelled-48e3b99c4118c88d",
+          "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "collection": "events"
+        },
+        "consumers": [],
+        "count": 0
+      }
+    },
+    {
+      "name": "getProducersOfMessage",
+      "args": {
+        "messageId": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+        "messageVersion": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+          "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "collection": "events"
+        },
+        "producers": [],
+        "count": 0
+      }
+    },
+    {
+      "name": "getConsumersOfMessage",
+      "args": {
+        "messageId": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+        "messageVersion": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "messageCollection": "events"
+      },
+      "data": {
+        "message": {
+          "id": "default--order-events--ShipmentDispatched-db28e6b745a6393e",
+          "version": "1.0.0-git.200.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "collection": "events"
+        },
+        "consumers": [],
+        "count": 0
+      }
+    }
+  ]
+}

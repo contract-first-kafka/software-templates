@@ -1,0 +1,826 @@
+{
+  "runs": [
+    {
+      "name": "eventcatalog-architecture-final",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:37:27Z",
+          "message": "Tasks Completed: 6 (Failed: 0, Cancelled 0), Skipped: 0",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "image-digest",
+          "value": "sha256:4b756eeb384fe6126bf75f7f640acfd12fe1fac87f675d0eaf266eb3be8d6245"
+        },
+        {
+          "name": "input-digest",
+          "value": "6526ae33d64d850b13d7c229a7a44ff68cd3742c9b2c3dc5adb0e52d95e26b67"
+        }
+      ],
+      "skippedTasks": []
+    },
+    {
+      "name": "eventcatalog-architecture-migration",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:28:43Z",
+          "message": "PipelineRun \"eventcatalog-architecture-migration\" was cancelled",
+          "reason": "Cancelled",
+          "status": "False",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [],
+      "skippedTasks": [
+        {
+          "name": "generate-and-build",
+          "reason": "PipelineRun was stopping",
+          "whenExpressions": [
+            {
+              "input": "$(tasks.discover.results.changed)",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build-and-push",
+          "reason": "PipelineRun was stopping",
+          "whenExpressions": [
+            {
+              "input": "$(tasks.discover.results.changed)",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-unchanged-a",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:39:52Z",
+          "message": "Tasks Completed: 4 (Failed: 0, Cancelled 0), Skipped: 3",
+          "reason": "Completed",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [],
+      "skippedTasks": [
+        {
+          "name": "generate-and-build",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "false",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build-and-push",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "false",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "publish-gitops-intent",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "$(tasks.discover.results.changed)",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-unchanged-b",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:38:53Z",
+          "message": "Tasks Completed: 1 (Failed: 0, Cancelled 0), Skipped: 6",
+          "reason": "Completed",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [],
+      "skippedTasks": [
+        {
+          "name": "clone",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "false",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "discover",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "false",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "generate-and-build",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "$(tasks.discover.results.changed)",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build-and-push",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "$(tasks.discover.results.changed)",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "publish-gitops-intent",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "$(tasks.discover.results.changed)",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "release-build",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "false",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-bindings",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:56:02Z",
+          "message": "Tasks Completed: 6 (Failed: 0, Cancelled 0), Skipped: 0",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "image-digest",
+          "value": "sha256:8490b804f5268b8c6f414627c7821074266bd0529a91b4ad41c54a3f835cc86b"
+        },
+        {
+          "name": "input-digest",
+          "value": "3eb2369551082296ba0e709222f97dd4dba1ee110f244c062e26bc3f5f4ef309"
+        }
+      ],
+      "skippedTasks": []
+    },
+    {
+      "name": "eventcatalog-architecture-final-unchanged",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T22:02:26Z",
+          "message": "Tasks Completed: 4 (Failed: 0, Cancelled 0), Skipped: 3",
+          "reason": "Completed",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [],
+      "skippedTasks": [
+        {
+          "name": "generate-and-build",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "false",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build-and-push",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "false",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "publish-gitops-intent",
+          "reason": "When Expressions evaluated to false",
+          "whenExpressions": [
+            {
+              "input": "$(tasks.discover.results.changed)",
+              "operator": "in",
+              "values": [
+                "true"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "name": "eventcatalog-architecture-final-acquire-build",
+      "run": "eventcatalog-architecture-final",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:32:55Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "acquired",
+          "type": "string",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-final-build-and-push",
+      "run": "eventcatalog-architecture-final",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:36:59Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "IMAGE_DIGEST",
+          "type": "string",
+          "value": "sha256:4b756eeb384fe6126bf75f7f640acfd12fe1fac87f675d0eaf266eb3be8d6245"
+        },
+        {
+          "name": "IMAGE_URL",
+          "type": "string",
+          "value": "registry-quay-quay.apps.cluster-ggvsm.dyn.redhatworkshops.io/openshift_demo-catalog/eventcatalog:inputs-6526ae33d64d850b13d7c229a7a44ff68cd3742c9b2c3dc5adb0e52d95e26b67"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-final-clone",
+      "run": "eventcatalog-architecture-final",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:33:15Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "COMMIT",
+          "type": "string",
+          "value": "be3b1f08742371f045cc5c07d9cd9acde12d6707"
+        },
+        {
+          "name": "COMMITTER_DATE",
+          "type": "string",
+          "value": "1792704751"
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "https://github.com/contract-first-kafka/demo-domain.git"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-final-discover",
+      "run": "eventcatalog-architecture-final",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:33:52Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "changed",
+          "type": "string",
+          "value": "true"
+        },
+        {
+          "name": "fingerprint",
+          "type": "string",
+          "value": "6526ae33d64d850b13d7c229a7a44ff68cd3742c9b2c3dc5adb0e52d95e26b67"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-final-generate-and-build",
+      "run": "eventcatalog-architecture-final",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:34:24Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": []
+    },
+    {
+      "name": "eventcatalog-architecture-final-release-build",
+      "run": "eventcatalog-architecture-final",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:37:27Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": []
+    },
+    {
+      "name": "eventcatalog-architecture-migration-acquire-build",
+      "run": "eventcatalog-architecture-migration",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:28:14Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "acquired",
+          "type": "string",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-migration-clone",
+      "run": "eventcatalog-architecture-migration",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:28:29Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "COMMIT",
+          "type": "string",
+          "value": "11c542421ca9ff0f48bb63836852450ac9c5728f"
+        },
+        {
+          "name": "COMMITTER_DATE",
+          "type": "string",
+          "value": "1792699568"
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "https://github.com/contract-first-kafka/demo-domain.git"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-migration-discover",
+      "run": "eventcatalog-architecture-migration",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:28:36Z",
+          "message": "TaskRun \"eventcatalog-architecture-migration-discover\" was cancelled. TaskRun cancelled as the PipelineRun it belongs to has been cancelled.",
+          "reason": "TaskRunCancelled",
+          "status": "False",
+          "type": "Succeeded"
+        }
+      ],
+      "results": []
+    },
+    {
+      "name": "eventcatalog-architecture-migration-release-build",
+      "run": "eventcatalog-architecture-migration",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:28:43Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": []
+    },
+    {
+      "name": "eventcatalog-architecture-unchanged-a-acquire-build",
+      "run": "eventcatalog-architecture-unchanged-a",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:38:53Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "acquired",
+          "type": "string",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-unchanged-a-clone",
+      "run": "eventcatalog-architecture-unchanged-a",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:39:12Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "COMMIT",
+          "type": "string",
+          "value": "62f895ed5bf365c40222db73d9f2f79701d20a4e"
+        },
+        {
+          "name": "COMMITTER_DATE",
+          "type": "string",
+          "value": "1792705069"
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "https://github.com/contract-first-kafka/demo-domain.git"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-unchanged-a-discover",
+      "run": "eventcatalog-architecture-unchanged-a",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:39:47Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "changed",
+          "type": "string",
+          "value": "false"
+        },
+        {
+          "name": "fingerprint",
+          "type": "string",
+          "value": "6526ae33d64d850b13d7c229a7a44ff68cd3742c9b2c3dc5adb0e52d95e26b67"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-unchanged-a-release-build",
+      "run": "eventcatalog-architecture-unchanged-a",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:39:52Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": []
+    },
+    {
+      "name": "eventcatalog-architecture-unchanged-b-acquire-build",
+      "run": "eventcatalog-architecture-unchanged-b",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:38:53Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "acquired",
+          "type": "string",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-bindings-acquire-build",
+      "pipelineRun": "eventcatalog-architecture-bindings",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:52:09Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "acquired",
+          "type": "string",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-bindings-build-and-push",
+      "pipelineRun": "eventcatalog-architecture-bindings",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:55:56Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "IMAGE_DIGEST",
+          "type": "string",
+          "value": "sha256:8490b804f5268b8c6f414627c7821074266bd0529a91b4ad41c54a3f835cc86b"
+        },
+        {
+          "name": "IMAGE_URL",
+          "type": "string",
+          "value": "registry-quay-quay.apps.cluster-ggvsm.dyn.redhatworkshops.io/openshift_demo-catalog/eventcatalog:inputs-3eb2369551082296ba0e709222f97dd4dba1ee110f244c062e26bc3f5f4ef309"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-bindings-clone",
+      "pipelineRun": "eventcatalog-architecture-bindings",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:52:27Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "COMMIT",
+          "type": "string",
+          "value": "95a8c7094d739c6bd04f736bceb70414adeaebb4"
+        },
+        {
+          "name": "COMMITTER_DATE",
+          "type": "string",
+          "value": "1792705873"
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "https://github.com/contract-first-kafka/demo-domain.git"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-bindings-discover",
+      "pipelineRun": "eventcatalog-architecture-bindings",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:53:00Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "changed",
+          "type": "string",
+          "value": "true"
+        },
+        {
+          "name": "fingerprint",
+          "type": "string",
+          "value": "3eb2369551082296ba0e709222f97dd4dba1ee110f244c062e26bc3f5f4ef309"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-bindings-generate-and-build",
+      "pipelineRun": "eventcatalog-architecture-bindings",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:53:30Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": []
+    },
+    {
+      "name": "eventcatalog-architecture-bindings-release-build",
+      "pipelineRun": "eventcatalog-architecture-bindings",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T21:56:02Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": []
+    },
+    {
+      "name": "eventcatalog-architecture-final-unchanged-acquire-build",
+      "pipelineRun": "eventcatalog-architecture-final-unchanged",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T22:01:36Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "acquired",
+          "type": "string",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-final-unchanged-clone",
+      "pipelineRun": "eventcatalog-architecture-final-unchanged",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T22:01:48Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "COMMIT",
+          "type": "string",
+          "value": "790c2c5faee9ce2ea5d8e9542a8270385f4304f7"
+        },
+        {
+          "name": "COMMITTER_DATE",
+          "type": "string",
+          "value": "1792706235"
+        },
+        {
+          "name": "URL",
+          "type": "string",
+          "value": "https://github.com/contract-first-kafka/demo-domain.git"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-final-unchanged-discover",
+      "pipelineRun": "eventcatalog-architecture-final-unchanged",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T22:02:20Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": [
+        {
+          "name": "changed",
+          "type": "string",
+          "value": "false"
+        },
+        {
+          "name": "fingerprint",
+          "type": "string",
+          "value": "3eb2369551082296ba0e709222f97dd4dba1ee110f244c062e26bc3f5f4ef309"
+        }
+      ]
+    },
+    {
+      "name": "eventcatalog-architecture-final-unchanged-release-build",
+      "pipelineRun": "eventcatalog-architecture-final-unchanged",
+      "conditions": [
+        {
+          "lastTransitionTime": "2026-10-22T22:02:26Z",
+          "message": "All Steps have completed executing",
+          "reason": "Succeeded",
+          "status": "True",
+          "type": "Succeeded"
+        }
+      ],
+      "results": []
+    }
+  ]
+}
