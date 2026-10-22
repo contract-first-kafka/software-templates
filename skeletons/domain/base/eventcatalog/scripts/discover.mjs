@@ -30,7 +30,7 @@ function checkout(url, revision) {
     git(dir,'init','--quiet');git(dir,'remote','add','origin',url);
     git(dir,'fetch','--quiet','--depth=1','origin',revision);git(dir,'checkout','--quiet','--detach','FETCH_HEAD');
   } catch {throw Error(`Cannot resolve ${url} @ ${revision}; pinned contract versions must identify a published Git commit or tag`);}
-  const record={url,revision,sha:git(dir,'rev-parse','HEAD')};resolved.push(record);
+  const record={url,revision,sha:git(dir,'rev-parse','HEAD'),timestamp:Number(git(dir,'show','-s','--format=%ct'))};resolved.push(record);
   const result={dir,...record};checkouts.set(key,result);return result;
 }
 function membership(entity, kind, parent, parentKind) {
@@ -67,7 +67,7 @@ function contract(source, system, expectedRef, selectedVersion='latest') {
     walk(raw);
   }
   track(spec);
-  const result={id:identity(api),ref:apiRef,entity:api,system:identity(system),path:path.relative(project,spec),definition:path.relative(source.dir,spec),files:[...visited].map(f=>path.relative(source.dir,f)).sort(),source:{url:source.url,revision:source.revision,sha:source.sha},selectedVersion};
+  const result={id:identity(api),ref:apiRef,entity:api,system:identity(system),path:path.relative(project,spec),definition:path.relative(source.dir,spec),files:[...visited].map(f=>path.relative(source.dir,f)).sort(),source:{url:source.url,revision:source.revision,sha:source.sha,timestamp:source.timestamp},selectedVersion};
   effective.set(source.url+'@'+source.revision+'/resolved-contract-revision',source.sha);
   contracts.push(result);return result;
 }

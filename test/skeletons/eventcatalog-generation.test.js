@@ -20,7 +20,7 @@ beforeEach(()=>{
  fs.mkdirSync(path.join(temp,'scripts'));fs.copyFileSync(path.join(root,'skeletons/domain/base/eventcatalog/scripts/generate.mjs'),path.join(temp,'scripts/generate.mjs'));
  fs.symlinkSync(path.join(root,'test/node_modules'),path.join(temp,'node_modules'),'dir');
  const entity=(kind,name)=>({kind,metadata:{name},spec:{owner:'group:default/owners'}});
- const revision={url:'https://example.test/events.git',revision:'main',sha:'a'.repeat(40)};
+ const revision={url:'https://example.test/events.git',revision:'main',sha:'a'.repeat(40),timestamp:200};
  inputs={domain:entity('Domain','shop'),organization:'example',resolved:[revision],systems:[{id:'default--orders',entity:entity('System','orders'),source:revision}],contracts:[{id:'default--events',ref:'api:default/events',entity:entity('API','events'),system:'default--orders',path:'.inputs/api/specification.yaml',source:revision}],components:[]};
  write('.inputs/api/specification.yaml',source);write('docs/index.mdx','# Authored architecture\nKeep it.');
 });
@@ -52,11 +52,12 @@ test('all channel declarations are generated even with no root operations, shari
  const spec=YAML.parse(source);delete spec.operations;spec.channels.audit.address=spec.channels.orders.address;write('.inputs/api/specification.yaml',YAML.stringify(spec));generate();expect(events()).toHaveLength(3);expect(list('channels')).toHaveLength(2);expect(events().find(e=>e.name==='OrderAccepted').channels).toHaveLength(1);
 });
 test('pinned revisions retain distinct Event versions and resolve Component relationships to the selected source',()=>{
- const old=structuredClone(inputs.contracts[0]);old.source.sha='b'.repeat(40);old.source.revision=old.source.sha;old.path='.inputs/old/specification.yaml';inputs.contracts.push(old);write(old.path,source);
+ const old=structuredClone(inputs.contracts[0]);old.source.sha='b'.repeat(40);old.source.timestamp=100;old.source.revision=old.source.sha;old.path='.inputs/old/specification.yaml';inputs.contracts.push(old);write(old.path,source);
  component('pinned',[{channel:'orders',message:'accepted',role:'consume'}],old.source.sha,old.source.sha);generate();
  const relation=front('services/default--pinned/index.md').receives[0];expect(relation.version).toContain(old.source.sha);
  expect(front(`events/${relation.id}/versioned/${relation.version}/index.md`)['x-source-revision']).toBe(old.source.sha);
  expect(front(`events/${relation.id}/index.md`)['x-source-revision']).toBe('a'.repeat(40));
+ expect(require('semver').gt(front(`events/${relation.id}/index.md`).version,relation.version)).toBe(true);
 });
 test('metadata updates and removed Components reconcile without deleting independent contracts or authored docs',()=>{
  const c=component('consumer',[{channel:'orders',message:'accepted',role:'consume'}]);generate();c.entity.metadata.description='Changed description';generate();expect(front('services/default--consumer/index.md').summary).toBe('Changed description');

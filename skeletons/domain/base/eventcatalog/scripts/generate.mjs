@@ -60,7 +60,8 @@ for(const contract of inputs.contracts) {
   const logical=String(raw.info.version);
   if(!/^\d+\.\d+\.\d+(?:-[\w.-]+)?(?:\+[\w.-]+)?$/.test(logical))throw Error(`${contract.ref}: info.version must be a semantic version`);
   // Source revisions distinguish independent Git publications with an unchanged info.version.
-  const version=logical.split('+')[0]+(logical.includes('-')?'.':'-')+'git.'+contract.source.sha;
+  if(!Number.isSafeInteger(contract.source.timestamp) || contract.source.timestamp<0)throw Error(`${contract.ref}: missing Git commit timestamp for native version ordering`);
+  const version=logical.split('+')[0]+(logical.includes('-')?'.':'-')+'git.'+contract.source.timestamp+'.'+contract.source.sha;
   const current=inputs.contracts.find(c=>c.id===contract.id)===contract;
   const docSlug=`generated-contracts/${contract.id}-${version}`;
   const repositoryRoot=path.resolve('.inputs',contract.path.split('/')[1]);

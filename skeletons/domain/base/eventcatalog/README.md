@@ -39,7 +39,8 @@ missing versions fail rather than falling back to latest or querying mutable
 Registry content. Release tags should match the version used by the existing
 publication pipeline. Source SHA, selected Registry version, logical `info.version`
 and catalog API identity are retained separately. Native Event and Channel
-versions include the logical version and exact source SHA (`1.0.0-git.<sha>`), so
+versions include the logical version and exact source SHA (`1.0.0-git.<commit-time>.<sha>`), so
+native version ordering follows Git commit time rather than arbitrary SHA text, and
 two publications with the same logical version cannot silently overwrite one
 another. Pinned and current revisions can coexist. Domain, System and Service
 versions are `1.0.0` architectural identities; their metadata records source SHAs.
