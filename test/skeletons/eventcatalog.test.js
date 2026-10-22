@@ -20,8 +20,8 @@ test('Git discovery follows registrations, keeps portable paths and skips unchan
   try {
     const api=init('api.git');
     write(api,'catalog-info.yaml',{kind:'API',metadata:{name:'events'},spec:{type:'asyncapi',system:'system:default/orders',owner:'group:default/owners',definition:{$text:'./specification.yaml'}}});
-    // Discovery must pass source bytes through without implementing an AsyncAPI parser.
-    write(api,'specification.yaml','opaque specification bytes: [native generator owns parsing');commit(api);
+    // Discovery tracks local references but preserves the original specification bytes.
+    write(api,'specification.yaml','opaque specification bytes: build-time parser owns parsing');commit(api);
     const system=init('system.git');
     write(system,'catalog-info.yaml',{kind:'System',metadata:{name:'orders'},spec:{domain:'domain:default/shop',owner:'group:default/owners'}});
     write(system,'apis/events/values.yaml',{repository:'https://example.test/api.git',revision:'main'});commit(system);
@@ -34,15 +34,28 @@ test('Git discovery follows registrations, keeps portable paths and skips unchan
     const project=path.join(domain,'eventcatalog');fs.symlinkSync(path.join(root,'test/node_modules'),path.join(project,'node_modules'),'dir');
     const env={...process.env,GIT_CONFIG_COUNT:'1',GIT_CONFIG_KEY_0:`url.file://${temp}/.insteadOf`,GIT_CONFIG_VALUE_0:'https://example.test/'};
     const discover=()=>{execFileSync(process.execPath,['scripts/discover.mjs'],{cwd:project,env,stdio:'pipe'});return JSON.parse(fs.readFileSync(path.join(project,'.discovery.json')));};
-    expect(discover().services).toHaveLength(0);
+    expect(discover().contracts).toHaveLength(0);
     write(domain,'systems/orders/environments/dev.yaml',{systemName:'orders',repository:{cloneUrl:'https://example.test/system.git',revision:'main'}});commit(domain);
-    const first=discover();expect(first.systems[0].id).toBe('orders');expect(first.services).toHaveLength(1);
-    expect(path.isAbsolute(first.services[0].path)).toBe(false);
-    expect(fs.readFileSync(path.join(project,first.services[0].path),'utf8')).toContain('opaque specification bytes');
+    const first=discover();expect(first.systems[0].id).toBe('default--orders');expect(first.contracts).toHaveLength(1);
+    expect(path.isAbsolute(first.contracts[0].path)).toBe(false);
+    expect(fs.readFileSync(path.join(project,first.contracts[0].path),'utf8')).toContain('opaque specification bytes');
     expect(first.resolved.find(x=>x.url==='https://example.test/api.git').sha).toBe(git(api,'rev-parse','HEAD'));
     metadata.spec.eventCatalog.inputDigest=first.inputDigest;metadata.spec.eventCatalog.image='registry/image@sha256:'+ 'a'.repeat(64);write(domain,'catalog-info.yaml',metadata);
     expect(discover().changed).toBe(false);
     write(api,'specification.yaml','updated opaque contract bytes');commit(api);expect(discover().changed).toBe(true);
+    const component=init('component.git');
+    const componentEntity={kind:'Component',metadata:{name:'processor'},spec:{system:'system:default/orders',owner:'group:default/owners',consumesApis:['api:default/events']}};
+    write(component,'catalog-info.yaml',componentEntity);
+    const selections=[{ref:'api:default/events',version:'latest',messages:[{channel:'orders',message:'accepted',role:'consume'}]}];
+    write(component,'src/main/resources/event-contracts.json',JSON.stringify(selections));write(component,'src/App.java','// initial application');commit(component);
+    write(system,'components/processor/values.yaml',{build:{repository:'https://example.test/component.git',revision:'main'}});commit(system);
+    const withComponent=discover();expect(withComponent.components).toHaveLength(1);expect(withComponent.components[0].selections[0].sourceSha).toBe(git(api,'rev-parse','HEAD'));
+    write(component,'src/App.java','// unrelated application edit');commit(component);expect(discover().inputDigest).toBe(withComponent.inputDigest);
+    componentEntity.metadata.description='New architecture description';write(component,'catalog-info.yaml',componentEntity);commit(component);expect(discover().inputDigest).not.toBe(withComponent.inputDigest);
+    const pinned=git(api,'rev-parse','HEAD');selections[0].version=pinned;write(component,'src/main/resources/event-contracts.json',JSON.stringify(selections));commit(component);
+    write(api,'specification.yaml','newer contract: latest');commit(api);const versions=discover();expect(versions.contracts).toHaveLength(2);expect(versions.components[0].selections[0].sourceSha).toBe(pinned);
+    selections[0].version='nonexistent-tag';write(component,'src/main/resources/event-contracts.json',JSON.stringify(selections));commit(component);expect(()=>discover()).toThrow('Cannot resolve');
+    fs.rmSync(path.join(system,'components'),{recursive:true});commit(system);expect(discover().components).toHaveLength(0);expect(discover().contracts).toHaveLength(1);
     expect(fs.readFileSync(path.join(project,'docs/index.mdx'),'utf8')).toBe('Authored architecture must survive');
   } finally {fs.rmSync(temp,{recursive:true,force:true});}
 });
@@ -55,7 +68,7 @@ test('server runtime packaging includes MCP contract files and notices but exclu
       '.discovery.json', 'docs/index.mdx', 'domains/demo/services/orders/specification.yaml',
       '.astro/eventcatalog/.eventcatalog/fields.db', '.inputs/repo/.git/config', '.env',
       'node_modules/@eventcatalog/core/LICENSE', 'node_modules/@eventcatalog/core/NOTICE',
-      'node_modules/@eventcatalog/generator-asyncapi/LICENSE']) {
+      'node_modules/@asyncapi/parser/LICENSE', 'node_modules/@asyncapi/avro-schema-parser/LICENSE', 'node_modules/@eventcatalog/sdk/LICENSE']) {
       fs.mkdirSync(path.dirname(path.join(temp, file)), {recursive: true});
       fs.writeFileSync(path.join(temp, file), 'fixture');
     }
@@ -64,14 +77,15 @@ test('server runtime packaging includes MCP contract files and notices but exclu
     execFileSync(process.execPath, [path.join(source, 'scripts/package-runtime.mjs')], {cwd: temp});
     for (const file of ['.discovery.json', 'docs/index.mdx', 'domains/demo/services/orders/specification.yaml',
       '.astro/eventcatalog/.eventcatalog/fields.db', 'dist/client/LICENSES/EventCatalog.txt',
-      'dist/client/LICENSES/EventCatalog-NOTICE.txt', 'dist/client/LICENSES/AsyncAPI-generator.txt'])
+      'dist/client/LICENSES/EventCatalog-NOTICE.txt', 'dist/client/LICENSES/AsyncAPI-parser.txt'])
       expect(fs.existsSync(path.join(temp, '.runtime', file))).toBe(true);
     for (const file of ['.inputs', '.env', 'node_modules', '.git'])
       expect(fs.existsSync(path.join(temp, '.runtime', file))).toBe(false);
     expect(fs.readFileSync(path.join(source, 'eventcatalog.config.js'), 'utf8')).toContain('chat: {enabled: false}');
     const pkg = JSON.parse(fs.readFileSync(path.join(source, 'package.json')));
     expect(pkg.dependencies).toEqual({'@eventcatalog/core': '5.4.1'});
-    expect(pkg.devDependencies['@eventcatalog/generator-asyncapi']).toBe('7.1.0');
+    expect(pkg.devDependencies['@eventcatalog/generator-asyncapi']).toBeUndefined();
+    expect(pkg.devDependencies['@eventcatalog/sdk']).toBe('2.31.2');
     expect(fs.readFileSync(path.join(source, 'eventcatalog.config.js'), 'utf8')).toContain("output: 'server'");
     expect(fs.readFileSync(path.join(source, 'Dockerfile'), 'utf8')).toContain('ln -s /opt/app-root/src/dist/client/generated /generated');
     expect(fs.readFileSync(path.join(source, '.dockerignore'), 'utf8')).toContain('!.runtime/**');

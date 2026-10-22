@@ -1,74 +1,96 @@
 # Domain EventCatalog
 
-Run `npm ci`, `npm run discover`, `npm run generate`, and `npm run build` from this
-folder. Discovery follows Domain System activation files and System API values,
-fetching their specified Git revisions. `.discovery.json` records resolved SHAs.
-No contract inventory or generated schemas are maintained here.
+Run `npm ci`, `npm run discover`, `npm run generate`, and `npm run build` here.
+The project pins EventCatalog core 5.4.1, AsyncAPI parser 3.6.0, Avro schema parser
+3.0.24 and EventCatalog SDK 2.31.2. Generation is a build step in this existing
+Domain project, with no independent package, service or deployment.
 
-Maintain architectural context in `docs/`. Native AsyncAPI generation writes only
-ignored build resources and preserves authored documentation. Empty Domains still
-serve their authored documentation.
+## Authoritative inputs and native resources
 
-EventCatalog 5.4.1 uses BSL 1.1; the official AsyncAPI generator 7.1.0 is MIT.
-This reference architecture uses synthetic, non-production data. Enterprise
-production use may require a commercial license. Package license notices are
-preserved by npm; see `LICENSES/` in the published application.
+Discovery follows the Domain's build-environment activations, System
+`apis/*/values.yaml` and `components/*/values.yaml` registrations. Git remains
+authoritative. An API supplies its catalog entity and original specification;
+a Component supplies its catalog entity and `src/main/resources/event-contracts.json`.
+A Component without Kafka selections is still a real Service.
 
-Native generator 7.1.0 represents contracts as Services beneath a Domain and does
-not create native System resources. Contract Service names and summaries retain
-the source System and owner; Git remains the authority for System membership.
-These Services do not imply deployed Components. Native sends/receives describe
-the contract operations, not verified implementation relationships.
+The generated Domain links native Systems, and Systems link real Component
+Services. Independent contracts produce Events, Kafka Channels, attached payload
+schemas, examples, header documentation and contract documentation, even with no
+Components. A contract never creates a Service. Channel/message declarations are
+complete regardless of root operation actions. Component message roles alone
+produce Service `sends`/`receives`, with exact channel-specific `to`/`from` pointers.
+Shared message references yield one Event; multiple channel keys with the same
+Kafka topic share one Channel within their contract. Independent contracts retain
+separate identities, even if topic addresses happen to match.
 
-## Native server and MCP
+Contracts are discoverable from the System page, Events, and native custom docs
+under `docs/generated-contracts/`. Each documentation page links the exact Git
+source and an unchanged downloadable AsyncAPI document. Avro schemas retain their
+native format. JSON Schema references are bundled into local `$defs`, including
+recursive payload references. CloudEvents headers and message examples remain
+available on Event pages. The seven design standards and reference contract are
+unchanged.
 
-The build uses `output: 'server'` and `mcp: {enabled: true}` with core 5.4.1.
-`npm run build` also creates an allowlisted `.runtime/` container context. Buildah
-installs only production dependencies from the lockfile; the generator and direct
-YAML discovery dependency are build-only. The pinned Node.js 24 UBI image runs
-`eventcatalog start` as a non-root user on `0.0.0.0:8080`; OpenShift can assign its
-own UID. No Git checkout, credential, `.env`, or npm cache is copied into runtime.
-Core's published package includes its own transitive tooling; it remains intact
-because the supported CLI and server import its bundled runtime dependencies.
+## Versions and validation
 
-The generated `dist/`, resource directories, authored docs, `.discovery.json`, and
-build-time fields index travel with the image. The config reads `.discovery.json`
-and `docs/index.mdx` at startup, so both must be retained. Discovery and generation
-never run in the serving container. The generator's contract Services do not imply
-deployed Components, and it does not synthesize native System resources.
+`latest` selects the API's registered Git revision. An explicit Component contract
+version must resolve as a Git commit or published tag in that API repository;
+missing versions fail rather than falling back to latest or querying mutable
+Registry content. Release tags should match the version used by the existing
+publication pipeline. Source SHA, selected Registry version, logical `info.version`
+and catalog API identity are retained separately. Native Event and Channel
+versions include the logical version and exact source SHA (`1.0.0-git.<sha>`), so
+two publications with the same logical version cannot silently overwrite one
+another. Pinned and current revisions can coexist. Domain, System and Service
+versions are `1.0.0` architectural identities; their metadata records source SHAs.
 
-Connect a Streamable HTTP MCP client to `https://<catalog-route>/docs/mcp`.
-Use the exact path without a trailing slash. The endpoint performs standard MCP
-`initialize`, `notifications/initialized`, `tools/list`, and `tools/call`
-interactions. A browser GET is health metadata, not a protocol verification.
-The server is stateless; its optional SSE GET channel returns 405 by design.
+Missing registrations, wrong System membership, missing message keys, invalid
+roles, inconsistent catalog API relationships and unsupported contracts fail the
+build with context. Remote schema references must be vendored in the API Git
+repository so the input fingerprint covers their content.
 
-Useful native tools include `getResources`, `getResource`,
-`getSchemaForResource`, `getMessagesProducedOrConsumedByResource`,
-`getProducersOfMessage`, `getConsumersOfMessage`, `showResource`, and the custom
-documentation tools. Use `getResources` to discover IDs before querying them.
-`resources/list` also exposes `eventcatalog://` collection resources.
-An MCP client configuration can use:
+## Regeneration and authored documentation
 
-```json
-{"mcpServers":{"eventcatalog":{"type":"http","url":"https://<catalog-route>/docs/mcp"}}}
-```
+Edit business context in `docs/index.mdx` and other authored native MD/MDX pages.
+Use `title` and `summary` frontmatter. Generated resource directories and
+`docs/generated-contracts/` are reserved build outputs and must not hold authored
+content. Generation validates the complete model before replacing generated
+resources, removes stale Services and relationships, and preserves authored docs.
 
-Core 5.4.1's native service-schema tool treats `/generated/...` asset URLs as
-filesystem paths. The image provides `/generated` as a read-only symlink to
-`dist/client/generated`; without this, `getSchemaForResource` fails for AsyncAPI
-specifications even when message schemas work. This is a packaging compatibility
-workaround, not a custom server or contract parser.
+The input digest includes activated registrations, API metadata and source
+specifications (including local references and pinned revisions), Component
+catalog metadata and event selections, and tracked project sources. Application
+source-only edits do not rebuild the catalog. Component source SHAs in the image
+record the discovery that produced that image; they are not deployment versions.
+Image-intent changes are excluded to avoid refresh loops. The existing Kubernetes
+Lease, unchanged-build skipping, Tekton pipeline, immutable Quay image and GitOps
+image-intent flow remain in place. Domain, System and Component push hooks and
+successful AsyncAPI publication request refreshes.
 
-MCP is unauthenticated for this public synthetic demonstration. It exposes the
-same generated contracts, schemas, ownership, and documentation in machine-readable
-form. Studio and the unconfigured AI chat widget are disabled; no custom write tools are added.
-The chat widget in core 5.4.1 otherwise renders a timezone-dependent greeting that
-causes an SSR hydration warning for clients in a different timezone. Before production,
-review data classification, EventCatalog's native MCP authentication, authorization,
-network access, rate limits, and the core BSL license/commercial-use terms. Preserve
-`/LICENSES/EventCatalog.txt`, `/LICENSES/EventCatalog-NOTICE.txt`, and
-`/LICENSES/AsyncAPI-generator.txt`. MCP is not a separate publishing destination.
+## Native UI, runtime and MCP
 
-The pipeline still uses input fingerprints, unchanged-build skipping, a Kubernetes
-Lease, Quay image digests, image-intent PRs, and the existing Domain Argo Application.
+The existing server build uses core 5.4.1, `output: 'server'`, and native MCP.
+Connect a Streamable HTTP client to `https://<catalog-route>/docs/mcp` (no trailing
+slash). Exercise actual `tools/call` requests; an HTTP health response is not an
+MCP verification. Native `getResources`, `getResource`,
+`getMessagesProducedOrConsumedByResource`, `getProducersOfMessage`,
+`getConsumersOfMessage`, `getSchemaForResource` and custom-document tools read the
+same architecture as the UI. Discover IDs with `getResources`; independent
+contracts are documents, not Services with specification attachments.
+
+`package-runtime.mjs` retains only serving assets, generated native resources,
+authored/generated docs, discovery provenance and the build-time fields index.
+Git checkouts, credentials and build caches are excluded. The existing `/generated`
+asset symlink and non-root Node.js container remain. No new runtime database or
+controller is introduced. License notices are retained under `/LICENSES/`.
+The public demonstration uses native unauthenticated MCP; production deployment
+must select the appropriate native access controls and EventCatalog licensing.
+
+## Existing Domains
+
+These scripts are copied at scaffolding time. Updating the template release alone
+does not migrate existing Domains. Update the current Domain's `eventcatalog/`
+package files, config, scripts and ignore rules in place, preserving its authored
+docs. Add the existing Domain refresh URL as a push webhook to registered Component
+repositories. Rebuild through its existing pipeline, commit the immutable image
+intent, and verify native UI and MCP results before declaring migration complete.

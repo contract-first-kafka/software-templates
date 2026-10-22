@@ -13,3 +13,8 @@ channels/
 public/build-inputs.json
 public/LICENSES/
 .runtime/
+systems/
+teams/
+.generation/
+docs/generated-contracts/
+public/contracts/

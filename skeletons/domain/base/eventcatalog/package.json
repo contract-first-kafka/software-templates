@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "discover": "node scripts/discover.mjs",
-    "generate": "eventcatalog generate",
+    "generate": "node scripts/generate.mjs",
     "build": "eventcatalog build && node scripts/package-runtime.mjs",
     "start": "eventcatalog start"
   },
@@ -12,7 +12,9 @@
     "@eventcatalog/core": "5.4.1"
   },
   "devDependencies": {
-    "@eventcatalog/generator-asyncapi": "7.1.0",
-    "yaml": "2.8.3"
+    "yaml": "2.8.3",
+    "@asyncapi/parser": "3.6.0",
+    "@asyncapi/avro-schema-parser": "3.0.24",
+    "@eventcatalog/sdk": "2.31.2"
   }
 }

@@ -270,3 +270,13 @@ test('resolved APIs reach rendering and desired state owns initial release', () 
   expect(fs.existsSync(path.join(root, 'skeletons/component/system-repo/release')))
     .toBe(false);
 });
+
+
+test('existing Component golden path refreshes its Domain EventCatalog on push', () => {
+  const webhook = step('eventCatalogWebhook');
+  expect(webhook.action).toBe('github:webhook');
+  expect(webhook.if).toContain('steps.fetchDomain.output.entity.spec.eventCatalog.enabled');
+  expect(webhook.input.events).toEqual(['push']);
+  expect(webhook.input.webhookUrl).toContain('el-eventcatalog-${{ steps.fetchDomain.output.entity.metadata.name }}-catalog');
+  expect(webhook.input.repoUrl).toContain('${{ parameters.componentName }}-service');
+});

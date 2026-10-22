@@ -20,6 +20,9 @@
     "clean": "rimraf output"
   },
   "devDependencies": {
+    "@asyncapi/avro-schema-parser": "3.0.24",
+    "@asyncapi/parser": "3.6.0",
+    "@eventcatalog/sdk": "2.31.2",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
     "cross-env": "^10.1.0",

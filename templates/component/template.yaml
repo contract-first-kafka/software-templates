@@ -580,6 +580,17 @@ spec:
       action: catalog:register
       input:
         repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+    - id: eventCatalogWebhook
+      name: Refresh Domain EventCatalog
+      if: ${{ steps.fetchDomain.output.entity.spec.eventCatalog.enabled }}
+      action: github:webhook
+      input:
+        repoUrl: ${{ steps.fetchDomain.output.entity.metadata.annotations['contract-first-idp.github.io/scm-host'] }}?owner=${{ steps.fetchDomain.output.entity.metadata.annotations['contract-first-idp.github.io/domain-org'] }}&repo=${{ steps.fetchSystem.output.entity.metadata.name }}-${{ parameters.componentName }}-service
+        webhookUrl: https://el-eventcatalog-${{ steps.fetchDomain.output.entity.metadata.name }}-catalog.${{ steps.fetchTarget.output.entity.spec.platform.cluster.routerDomain }}
+        events: [push]
+        active: true
+        contentType: json
+        insecureSsl: false
     - id: webhook
       name: Create Tekton webhook
       action: github:webhook
