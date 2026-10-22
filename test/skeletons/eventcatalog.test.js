@@ -84,6 +84,9 @@ test('server runtime packaging includes MCP contract files and notices but exclu
     expect(fs.readFileSync(path.join(source, 'eventcatalog.config.js'), 'utf8')).toContain('chat: {enabled: false}');
     const pkg = JSON.parse(fs.readFileSync(path.join(source, 'package.json')));
     expect(pkg.dependencies).toEqual({'@eventcatalog/core': '5.4.1'});
+    expect(pkg.scripts.build).toContain('EVENTCATALOG_DISABLE_CHANNEL_MIGRATION=true');
+    expect(pkg.scripts.start).toContain('EVENTCATALOG_DISABLE_CHANNEL_MIGRATION=true');
+    expect(fs.readFileSync(path.join(source, 'Dockerfile'), 'utf8')).toContain('ENV EVENTCATALOG_DISABLE_CHANNEL_MIGRATION=true');
     expect(pkg.devDependencies['@eventcatalog/generator-asyncapi']).toBeUndefined();
     expect(pkg.devDependencies['@eventcatalog/sdk']).toBe('2.31.2');
     expect(fs.readFileSync(path.join(source, 'eventcatalog.config.js'), 'utf8')).toContain("output: 'server'");

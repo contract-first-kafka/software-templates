@@ -10,6 +10,8 @@ COPY --from=dependencies /opt/app-root/src/node_modules ./node_modules
 COPY .runtime/ ./
 # EventCatalog 5.4.1's native MCP service-schema reader uses /generated URLs as file paths.
 RUN ln -s /opt/app-root/src/dist/client/generated /generated && chmod -R a+rX /opt/app-root/src
+# Keep independent message Channels and explicit Component to/from bindings intact.
+ENV EVENTCATALOG_DISABLE_CHANNEL_MIGRATION=true
 ENV NODE_ENV=production HOST=0.0.0.0 PORT=8080 HOME=/tmp
 USER 1001
 EXPOSE 8080

@@ -95,3 +95,9 @@ package files, config, scripts and ignore rules in place, preserving its authore
 docs. Add the existing Domain refresh URL as a push webhook to registered Component
 repositories. Rebuild through its existing pipeline, commit the immutable image
 intent, and verify native UI and MCP results before declaring migration complete.
+
+Core 5.4.1 automatically migrates message Channels into every matching Service,
+overwriting explicit `to`/`from` selections. Build and runtime therefore set the
+supported `EVENTCATALOG_DISABLE_CHANNEL_MIGRATION=true` switch. This preserves
+independent contract Channels and precise Component bindings; it does not enable
+an alternative CF-IDP model.

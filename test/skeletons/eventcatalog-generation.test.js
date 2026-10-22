@@ -73,3 +73,16 @@ test.each([
 ])('invalid relationships fail before replacing existing generated resources', (message,error)=>{
  generate();component('broken',[message]);expect(()=>generate()).toThrow(error);expect(events()).toHaveLength(3);expect(list('services')).toEqual([]);
 });
+
+test('repository-local JSON Schema references remain usable in schemas and original specification downloads',()=>{
+ const spec=YAML.parse(source);spec.components.schemas.Identifier={$ref:'./schemas/identifier.json'};
+ write('.inputs/api/specification.yaml',YAML.stringify(spec));write('.inputs/api/schemas/identifier.json',{type:'string',minLength:1});
+ inputs.contracts[0].files=['specification.yaml','schemas/identifier.json'];generate();
+ const shipment=events().find(e=>e.name==='ShipmentDispatched');const schema=JSON.parse(read(`events/${shipment.id}/schema.json`));
+ expect(Object.values(schema.$defs)).toContainEqual({type:'string',minLength:1});
+ expect(JSON.parse(read(`public/contracts/default--events/${shipment.version}/schemas/identifier.json`))).toEqual({type:'string',minLength:1});
+});
+
+test('AsyncAPI 3.0 channel declarations use the same independent contract model',()=>{
+ const spec=YAML.parse(source);spec.asyncapi='3.0.0';write('.inputs/api/specification.yaml',YAML.stringify(spec));generate();expect(events()).toHaveLength(3);expect(list('services')).toHaveLength(0);
+});

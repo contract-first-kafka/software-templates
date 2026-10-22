@@ -5,8 +5,8 @@
   "scripts": {
     "discover": "node scripts/discover.mjs",
     "generate": "node scripts/generate.mjs",
-    "build": "eventcatalog build && node scripts/package-runtime.mjs",
-    "start": "eventcatalog start"
+    "build": "EVENTCATALOG_DISABLE_CHANNEL_MIGRATION=true eventcatalog build && node scripts/package-runtime.mjs",
+    "start": "EVENTCATALOG_DISABLE_CHANNEL_MIGRATION=true eventcatalog start"
   },
   "dependencies": {
     "@eventcatalog/core": "5.4.1"
